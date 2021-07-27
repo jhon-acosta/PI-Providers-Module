@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Api\Role;
+use App\Models\Api\ModuleProviders\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
