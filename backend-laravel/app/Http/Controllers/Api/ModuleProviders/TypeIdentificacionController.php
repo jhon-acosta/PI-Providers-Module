@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\ModuleProviders;
 
 use App\Models\Api\ModuleProviders\TypeIdentificacion;
 use Illuminate\Http\Request;

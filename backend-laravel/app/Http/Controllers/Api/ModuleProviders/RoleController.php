@@ -1,85 +1,53 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\ModuleProviders;
 
-use App\Models\Api\Role;
 use Illuminate\Http\Request;
+use App\Models\Api\ModuleProviders\Role;
+use App\Http\Resources\Api\ModuleProviders\RoleResource;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $roles = Role::paginate(20);
+        return RoleResource::collection($roles);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $role = new Role();
+        $role->description = $request->description;
+
+ 
+        if($role->save()){
+            return new RoleResource($role);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Api\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
+    public function show($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        return new RoleResource($role);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Api\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
+    public function update(Request $request, $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->description = $request->description;
+
+ 
+        if($role->save()){
+            return new RoleResource($role);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Api\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Role $role)
+    public function destroy($id)
     {
-        //
-    }
+        $role = Role::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Api\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
-    {
-        //
+        if ($role->delete()) {
+            return new RoleResource($role);
+        }
     }
 }

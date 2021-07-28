@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Api;
+namespace Database\Factories\Api\ModuleProviders;
 
-use App\Models\Api\Role;
+use App\Models\Api\ModuleProviders\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RoleFactory extends Factory
@@ -22,7 +22,7 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'description' => $this->faker->unique()->randomElement($array = array ('provider','client','admin')),
         ];
     }
 }
