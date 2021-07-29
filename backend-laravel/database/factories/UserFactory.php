@@ -24,6 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'roleId' => $this->faker->randomElement([1,2,3]),
+            'typeId'=>$this->faker->randomElement([1,2]),
             'numberIdentification' => $this->faker->isbn13(),
             'names' => $this->faker->name(),
             'surnames' => $this->faker->name(),

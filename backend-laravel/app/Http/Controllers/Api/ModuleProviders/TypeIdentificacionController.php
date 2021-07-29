@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\ModuleProviders;
 
 use App\Models\Api\ModuleProviders\TypeIdentificacion;
 use Illuminate\Http\Request;
+use App\Http\Resources\Api\ModuleProviders\TypeIdentificationResource;
 
 class TypeIdentificacionController extends Controller
 {
@@ -14,7 +15,8 @@ class TypeIdentificacionController extends Controller
      */
     public function index()
     {
-        //
+        $typeIdentificacions= TypeIdentificacion::all();
+        return $typeIdentificacions;
     }
 
     /**
@@ -35,7 +37,11 @@ class TypeIdentificacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $typeIdentificacion = new TypeIdentificacion();
+        $typeIdentificacion->description= $request->description;
+        if($typeIdentificacion->save()){
+            return new TypeIdentificationResource($typeIdentificacion);
+        }
     }
 
     /**
@@ -44,9 +50,10 @@ class TypeIdentificacionController extends Controller
      * @param  \App\Models\Api\ModuleProviders\TypeIdentificacion  $typeIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function show(TypeIdentificacion $typeIdentificacion)
+    public function show($id)
     {
-        //
+        $typeIdentificacion = TypeIdentificacion::findOrFail($id);
+        return new TypeIdentificationResource($typeIdentificacion);
     }
 
     /**
@@ -67,9 +74,13 @@ class TypeIdentificacionController extends Controller
      * @param  \App\Models\Api\ModuleProviders\TypeIdentificacion  $typeIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TypeIdentificacion $typeIdentificacion)
+    public function update(Request $request, $id)
     {
-        //
+        $typeIdentificacion = TypeIdentificacion::findOrFail($id);
+        $typeIdentificacion->description = $request->description;
+        if($typeIdentificacion->save()){
+            return new TypeIdentificationResource($typeIdentificacion);
+        }
     }
 
     /**
@@ -78,8 +89,11 @@ class TypeIdentificacionController extends Controller
      * @param  \App\Models\Api\ModuleProviders\TypeIdentificacion  $typeIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TypeIdentificacion $typeIdentificacion)
+    public function destroy($id)
     {
-        //
+        $typeIdentificacion = TypeIdentificacion::findOrFail($id);
+        if($typeIdentificacion->delete()){
+            return new TypeIdentificationResource($typeIdentificacion);
+        }
     }
 }

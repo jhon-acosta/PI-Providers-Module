@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TypeIdentificacion extends Model
 {
     use HasFactory;
+    public function user(){
+        return $this->hasMany(User::class)->withTimeStamps();
+    }
 }

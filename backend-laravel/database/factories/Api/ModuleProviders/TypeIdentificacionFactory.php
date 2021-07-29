@@ -22,7 +22,7 @@ class TypeIdentificacionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'description'=>$this->faker->word,
         ];
     }
 }

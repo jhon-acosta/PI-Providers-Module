@@ -23,6 +23,7 @@ class UserController extends Controller
     {
         $user = new User();
         $user->roleId = $request->roleId;
+        $user->typeId = $request->typeId;
         $user->numberIdentification = $request->numberIdentification;
         $user->names = $request->names;
         $user->surnames = $request->surnames;
