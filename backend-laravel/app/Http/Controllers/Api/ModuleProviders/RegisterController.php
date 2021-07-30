@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\ModuleProviders;
 
 use App\Models\User;
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -45,6 +47,16 @@ class RegisterController extends Controller
                 ]
             ], 409);
         };
+
+        /**
+         * Send mail for verified
+         */
+        $details = [
+            'title' => 'Código de verificación',
+            'body' => $user->codeForVerfication
+        ];
+        Mail::to($user->email)->send(new SendMail($details));
+
         /**
          * Successful response 
          */
