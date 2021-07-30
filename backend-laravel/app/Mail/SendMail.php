@@ -30,6 +30,6 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Restablecer contraseña')->view('emails.CodeForVerification'); 
+        return $this->subject('Código de verificación')->view('emails.CodeForVerification'); 
     }
 }

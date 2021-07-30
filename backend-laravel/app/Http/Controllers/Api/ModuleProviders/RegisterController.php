@@ -66,9 +66,51 @@ class RegisterController extends Controller
                     'id' => $user->id,
                     'typeId' => $user->typeId,
                     'email' => $user->email,
-                    'codeForVerfication' => $user->codeForVerfication,
                 ]
             ], 200);
         }
+    }
+
+    public function accountVerification (Request $request) 
+    {
+        /**
+         * Verified the existence of an account
+         */
+        if ($user = DB::table('users')->where('email', $request->email)->first()) 
+        {
+            /**
+             * Code validation
+             */
+            if ($user->codeForVerfication === $request->codeForVerfication) {
+                /**
+                 * StatusEmailVerified update
+                 */
+                if (DB::table('users')->where('id', $user->id)
+                        ->update(['statusEmailVerified' => 1]))
+                {
+                    return response()->json([
+                        'data' => [
+                            'id' => $user->id,
+                            'email' => $user->email,
+                        ]
+                    ]);
+                } 
+                return response()->json([
+                    'error' => [
+                        'message' => 'error verifying account'
+                    ]
+                ]);    
+            }
+            return response()->json([
+                'error' => [
+                    'message' => 'error in code verification'
+                ]
+            ]);
+        }
+        return response()->json([
+            'error' => [
+                'message' => 'Account not found'
+            ]
+        ]);
     }
 }
