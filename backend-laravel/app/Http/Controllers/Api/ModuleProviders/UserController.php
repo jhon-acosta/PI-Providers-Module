@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\ModuleProviders;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Api\ModuleProviders\UserResource;
 
 class UserController extends Controller
@@ -23,6 +24,7 @@ class UserController extends Controller
     {
         $user = new User();
         $user->roleId = $request->roleId;
+        $user->typeId = $request->typeId;
         $user->numberIdentification = $request->numberIdentification;
         $user->names = $request->names;
         $user->surnames = $request->surnames;
@@ -54,6 +56,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->roleId = $request->roleId;
+        $user->typeId = $request->typeId;
         $user->numberIdentification = $request->numberIdentification;
         $user->names = $request->names;
         $user->surnames = $request->surnames;
@@ -64,7 +67,6 @@ class UserController extends Controller
         $user->nameImage = $request->nameImage;
         $user->codeForVerfication = $request->codeForVerfication;
         $user->statusEmailVerified = $request->statusEmailVerified;
-
  
         if($user->save()){
             return new UserResource($user);
@@ -73,10 +75,13 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = Role::findOrFail($id);
-
-        if ($user->delete()) {
-            return new RoleResource($user);
+        if (DB::table('users')->where('id', $id)->delete()) {
+            return response()->json([
+                'data' => [
+                    'id' => $id,
+                    'message' => 'user deleted'
+                ]
+            ], 200);
         }
     }
 }

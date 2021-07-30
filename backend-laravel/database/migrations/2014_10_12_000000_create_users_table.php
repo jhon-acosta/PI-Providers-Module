@@ -19,9 +19,10 @@ class CreateUsersTable extends Migration
              */
             $table->id();
             /**
-             * Foreign key
+             * Foreign keys
              */
             $table->unsignedBigInteger('roleId');
+            $table->unsignedBigInteger('typeId');
             /**
              * Fileds
              */
@@ -42,6 +43,11 @@ class CreateUsersTable extends Migration
                 ->references('id')
                 ->on('roles')
                 ->onUpdate('cascade');
+            
+            $table->foreign('typeId')
+                  ->references('id')
+                  ->on('type_identificacions')
+                  ->onUpdate('cascade');
             
             $table->timestamps();
             $table->timestamp('email_verified_at')->nullable();
