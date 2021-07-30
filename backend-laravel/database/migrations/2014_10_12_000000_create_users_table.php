@@ -19,10 +19,9 @@ class CreateUsersTable extends Migration
              */
             $table->id();
             /**
-             * Foreign key
+             * Foreign keys
              */
             $table->unsignedBigInteger('roleId');
-            //foreign key of type identifications
             $table->unsignedBigInteger('typeId');
             /**
              * Fileds
@@ -48,7 +47,6 @@ class CreateUsersTable extends Migration
             $table->foreign('typeId')
                   ->references('id')
                   ->on('type_identificacions')
-                  ->onDelete('cascade')
                   ->onUpdate('cascade');
             
             $table->timestamps();

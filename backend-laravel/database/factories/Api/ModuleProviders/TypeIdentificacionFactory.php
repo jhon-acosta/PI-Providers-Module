@@ -22,7 +22,9 @@ class TypeIdentificacionFactory extends Factory
     public function definition()
     {
         return [
-            'description'=>$this->faker->word,
+            'description' => $this->faker->unique()->randomElement(
+                $array = array ('RUC','Cédula de identidad','Canét de conadis')
+            ),
         ];
     }
 }

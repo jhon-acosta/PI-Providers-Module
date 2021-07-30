@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-        TypeIdentificacion::factory()->create(['description'=>'RUC']);
-        TypeIdentificacion::factory()->create(['description'=>'Cédula de identidad']);
+        TypeIdentificacion::factory(3)->create();
         Role::factory(3)->create();
         User::factory(10)->create();
     }
