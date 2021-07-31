@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ModuleProviders\RoleController;
 use App\Http\Controllers\Api\ModuleProviders\UserController;
+use App\Http\Controllers\Api\ModuleProviders\RegisterController;
 use App\Http\Controllers\Api\ModuleProviders\TypeIdentificacionController;
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,11 @@ use App\Http\Controllers\Api\ModuleProviders\TypeIdentificacionController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// regsitro
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/account-verification', [RegisterController::class, 'accountVerification']);
+
 // roles
 Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);
