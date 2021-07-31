@@ -10,36 +10,55 @@
         .testimonial {
             position: relative;
             padding: 45px 0;
-            background-color: #dd6b20;
+            background-color: #ff6a00;
+            font-family: 'Ubuntu';
         }
+
         .testimonial .container {
             padding: 0;
         }
+
         .testimonial .testimonial-item {
             position: relative;
             margin: 0 15px;
             text-align: center;
         }
+
         .testimonial .testimonial-password {
             padding: 3px;
             background: #ffffff;
             display: inline-flex;
             text-align: center;
-            border-radius: 5%;
-            box-shadow: 3px 3px 0px darkslategrey;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center;
         }
-        .testimonial .testimonial-item img {
+
+        .testimonial .testimonial-item .imgLogo {
             margin: 0 auto;
-            width: 120px;
+            width: 20%;
             padding: 13px;
             border-radius: 100px;
             border: 1px solid rgba(0, 0, 0, .07);
             background: #ffffff;
             transition: .5s;
         }
+        
         .testimonial .testimonial-item p {
             font-size: 16px;
             color: #fdfdfd;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .testimonial .testimonial-item img {
+            margin: 0 auto;
+            width: 40%;
+            padding: 13px;
+            border-radius: 100px;
+            border: 1px solid rgba(0, 0, 0, .07);
+            background: #ffffff;
+            transition: .5s;
+        }
         }
     </style>
 </head>
@@ -49,17 +68,24 @@
         <div class="owl-carousel testimonials-carousel">
             <div class="testimonial-item">
                 <div class="testimonial-img">
-                  <!-- image -->
+                    <img class="imgLogo" src="http://1000marcas.net/wp-content/uploads/2020/03/Alibaba-Logo-1.png" alt="Image">
                 </div>
             </div>
             <div class="testimonial-item">
-                <h3>Clave temporal: </h3>
+                <h2 style="color: white;"> BIENVENIDO </h2>
+                <p style="text-align: center; color: black;">Código de verificación:</p>
                 <div class="testimonial-password">
                     <h2>{{ $details [ 'body'] }}</h2>
                 </div>
-                <h3>Indicaciones: </h3>
-                <p> * Copié la clave generada temporalmente. </p>
-                <p> * Inicié sesión y actualicé su contraseña. </p>
+                <p style="text-align: center; font-weight: bold;">COMPRA AHORA</p>
+                <p style="text-align: center; color: black;">
+                    Desde la comodidad de tus casa
+                    <br>
+                    Los mejores precios del país
+                </p>
+                <img style="width:5%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Flag_of_Ecuador_%281900%E2%80%932009%29.svg/300px-Flag_of_Ecuador_%281900%E2%80%932009%29.svg.png" alt="Image">
+
+
                 <h6>&#169; 2021 Todos los derechos reservados</h6>
             </div>
         </div>
