@@ -1,51 +1,177 @@
-<section class="vh-100" style="background-color: #eee;">
-  <div class="container h-100">
+  <div class="container vh-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px;">
+        <div class="card text-black" style="border-radius: 10px;">
           <div class="card-body p-md-5">
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registro</p>
-
-                <form class="mx-1 mx-md-4">
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" id="form3Example1c" class="form-control" />
-                      <label class="form-label" for="form3Example1c">Your Name</label>
+                <p class="text-center h2 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Registro
+                  {{ data.names }}
+                </p>
+                <form class="mx-1 mx-md-4 text-small">
+                  <div class="form-group row mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Provincia:
+                    </p>
+                    <div class="col-sm-8">
+                      <select class="form-control form-control-sm">
+                        <option selected>Seleccionar...</option>
+                        <option value="1">Pichincha</option>
+                      </select>
                     </div>
                   </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c" class="form-control" />
-                      <label class="form-label" for="form3Example3c">Your Email</label>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Rol comercial:
+                    </p>
+                    <div class="d-flex col-sm-8">
+                      <div class="form-check form-control-sm" *ngFor="let role of roles">
+                        <input
+                          [(ngModel)]="data.roleId"
+                          class="form-check-input"
+                          type="radio"
+                          name="roleId"
+                          [value]="role.id"
+                        >
+                        <label class="form-check-label">
+                          <span *ngIf="role.description === 'client'">Cliente</span>
+                          <span *ngIf="role.description === 'provider'">Proveedor</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4c" class="form-control" />
-                      <label class="form-label" for="form3Example4c">Password</label>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Tipo de Id.
+                    </p>
+                    <div class="col-sm-8">
+                      <select
+                        [(ngModel)]="data.typeId"
+                        name="typeId"
+                        class="form-control form-control-sm"
+                        number
+                      >
+                        <option selected>Seleccionar...</option>
+                        <option
+                          *ngFor="let type of typesIdentifications"
+                          [value]="type.id"
+                        >
+                          {{ type.description }}
+                        </option>
+                      </select>
                     </div>
                   </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4cd" class="form-control" />
-                      <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      N. Identificación:
+                    </p>
+                    <div class="col-sm-8">
+                      <input 
+                        [(ngModel)]="data.numberIdentification"
+                        type="text"
+                        name="numberIdentification"
+                        placeholder="Ingrese su número de Identificación"
+                        class="form-control form-control-sm" 
+                      />
                     </div>
                   </div>
-
-                  <div class="form-check d-flex justify-content-center mb-5">
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Nombres:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        [(ngModel)]="data.names"
+                        type="text"
+                        name="names"
+                        placeholder="Ingresar nombres"
+                        class="form-control form-control-sm" 
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Apellidos:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        [(ngModel)]="data.surnames"
+                        type="text"
+                        name="surnames"
+                        placeholder="Ingresar apellidos"
+                        class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Correo electrónico:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        [(ngModel)]="data.email"
+                        type="text"
+                        name="email"
+                        placeholder="Ingresar correo electrónico"
+                        class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Contraseña:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        [(ngModel)]="data.password"
+                        type="text"
+                        name="password"
+                        placeholder="Ingresar una clave con carácteres especiales"
+                        class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Confirmar:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        [(ngModel)]="confirmPassword"
+                        type="text"
+                        name="confirmPassword"
+                        placeholder="Confirmar su contraseña"
+                        class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Teléfono:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        [(ngModel)]="data.cellPhone"
+                        type="text"
+                        name="cellPhone"
+                        placeholder="Ingresar número de télefono"
+                        class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                  <!-- CARGA DE PDF -->
+                  <div class="form-group row  mb-2">
+                    <p for="staticEmail" class="col-sm-4 col-form-label">
+                      Cargar RUC:
+                    </p>
+                    <div class="col-sm-8">
+                      <input
+                        class="form-control form-control-sm"
+                        id="formFileSm"
+                        type="file" 
+                      />
+                    </div>
+                  </div>
+                  <!--  -->
+                  <div class="form-check d-flex justify-content-center mb-2">
                     <input
-                      class="form-check-input me-2"
+                      class="form-check-input-sm me-2"
                       type="checkbox"
                       value=""
                       id="form2Example3c"
@@ -54,18 +180,33 @@
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
                   </div>
-
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" class="btn btn-primary btn-lg">Register</button>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm"
+                      (click)="test()"
+                    >
+                      Aceptar y registrarse
+                    </button>
                   </div>
-
                 </form>
-
               </div>
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image">
-
+              <div
+                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
+              >
+                <div class="custom-file">
+                  <label
+                    for="formFileSm"
+                    class="form-label"
+                  >
+                    Aceptar y registrarse
+                  </label>
+                  <input
+                    class="form-control form-control-sm"
+                    id="formFileSm"
+                    type="file" 
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -73,4 +214,3 @@
       </div>
     </div>
   </div>
-</section>
