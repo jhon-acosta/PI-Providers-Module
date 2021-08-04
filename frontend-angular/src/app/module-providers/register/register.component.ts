@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegisterI } from '../interfaces/Register';
 import { RolesService } from '../services/roles.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';
+import provinces  from '../utils/provinces.json'
 
 @Component({
   selector: 'register-component',
@@ -18,12 +19,14 @@ export class RegisterComponent implements OnInit {
     email: '',
     password: '',
     cellPhone: '',
-    pathImage: '',
-    nameImage: '',
+    markImage: '',
+    filePdf: '',
+    province:''
   }
   public confirmPassword = ''
   roles: Array<{ id: number, description: string}>
   typesIdentifications: Array<{ id: number, description: string}>
+  provincesEc: Array<{ provincia: string }>
 
   constructor(
     private _roles:RolesService, 
@@ -51,12 +54,17 @@ export class RegisterComponent implements OnInit {
     })
   }
 
+  getProvinces () {
+    this.provincesEc = provinces
+  }
+
   test () {
     console.log(this.data)
   }
   ngOnInit(): void {
     this.getAllRoles()
     this.getAllTypesIdentifications()
+    this.getProvinces()
   }
 
 }

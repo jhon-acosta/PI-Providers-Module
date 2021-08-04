@@ -7,6 +7,7 @@ export interface RegisterI {
   email: string,
   password: string,
   cellPhone: string,
-  pathImage?: string,
-  nameImage?: string,
+  markImage?: string,
+  filePdf?: string,
+  province: string
 }

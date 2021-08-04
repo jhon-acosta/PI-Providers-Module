@@ -15,9 +15,18 @@
                       Provincia:
                     </p>
                     <div class="col-sm-8">
-                      <select class="form-control form-control-sm">
+                      <select
+                        [(ngModel)]="data.province"
+                        name="province"
+                        class="form-control form-control-sm"
+                      >
                         <option selected>Seleccionar...</option>
-                        <option value="1">Pichincha</option>
+                        <option
+                          *ngFor="let province of provincesEc"
+                          [value]="province.provincia"
+                        >
+                          {{ province.provincia }}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -50,7 +59,6 @@
                         [(ngModel)]="data.typeId"
                         name="typeId"
                         class="form-control form-control-sm"
-                        number
                       >
                         <option selected>Seleccionar...</option>
                         <option
