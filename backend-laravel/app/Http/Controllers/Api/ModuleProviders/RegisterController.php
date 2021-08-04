@@ -28,15 +28,16 @@ class RegisterController extends Controller
         $user->surnames = $request->surnames;
         $user->email = $request->email;
         $user->cellPhone = $request->cellPhone;
-        $user->pathImage = $request->pathImage;
-        $user->nameImage = $request->nameImage;
+        $user->markImage = $request->markImage;
+        $user->filePdf = $request->filePdf;
+        $user->province = $request->province;
         $user->codeForVerfication = $randomCode;
         $user->statusEmailVerified = 0;
         /**
          * Password encryption
          */
-        $passwordSalt = '3CV'.$request->password.'5H0PpH1n';
-        $user->password = Hash::make($passwordSalt);
+        $passwordMoreSomething = '3CV'.$request->password.'5H0PpH1n';
+        $user->password = Hash::make($passwordMoreSomething);
         /**
          * Validation for mail
          */

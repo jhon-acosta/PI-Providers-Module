@@ -31,10 +31,11 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->cellPhone = $request->cellPhone;
-        $user->pathImage = $request->pathImage;
-        $user->nameImage = $request->nameImage;
+        $user->markImage = $request->markImage;
+        $user->filePdf = $request->filePdf;
         $user->codeForVerfication = $request->codeForVerfication;
         $user->statusEmailVerified = $request->statusEmailVerified;
+        $user->province = $request->province;
 
         if($user->save()){
             return new UserResource($user);
@@ -63,10 +64,11 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->cellPhone = $request->cellPhone;
-        $user->pathImage = $request->pathImage;
-        $user->nameImage = $request->nameImage;
+        $user->markImage = $request->markImage;
+        $user->filePdf = $request->filePdf;
         $user->codeForVerfication = $request->codeForVerfication;
         $user->statusEmailVerified = $request->statusEmailVerified;
+        $user->province = $request->province;
  
         if($user->save()){
             return new UserResource($user);
