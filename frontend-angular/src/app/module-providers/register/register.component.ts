@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterI } from '../interfaces/Register';
+import { RegisterService } from '../services/register.service';
 import { RolesService } from '../services/roles.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';
 import provinces  from '../utils/provinces.json'
@@ -30,7 +31,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private _roles:RolesService, 
-    private _typesIdentifications:TypesIdentificationsService
+    private _typesIdentifications:TypesIdentificationsService,
+    private _register: RegisterService,
     ) {}
 
   getAllRoles () {
@@ -58,8 +60,14 @@ export class RegisterComponent implements OnInit {
     this.provincesEc = provinces
   }
 
-  test () {
-    console.log(this.data)
+  async test () {
+    try {
+      console.log(this.data)
+      await this._register.registerUser(this.data).subscribe()
+      console.log('registrado')  
+    } catch (error) {
+      console.log(error)
+    }
   }
   ngOnInit(): void {
     this.getAllRoles()

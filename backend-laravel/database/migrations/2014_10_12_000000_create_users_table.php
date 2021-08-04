@@ -32,8 +32,8 @@ class CreateUsersTable extends Migration
             $table->string('email', 50)->unique();
             $table->string('password');
             $table->string('cellPhone', 10);
-            $table->string('markImage');
-            $table->string('filePdf');
+            $table->string('markImage')->nullable();
+            $table->string('filePdf')->nullable();
             $table->string('codeForVerfication', 6);
             $table->boolean('statusEmailVerified');
             $table->string('province', 50);
