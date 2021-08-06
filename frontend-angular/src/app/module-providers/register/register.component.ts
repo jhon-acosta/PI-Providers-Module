@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterI } from '../interfaces/Register';
+import { RegisterI } from '../interfaces/Interfaces';
 import { RegisterService } from '../services/register.service';
 import { RolesService } from '../services/roles.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';

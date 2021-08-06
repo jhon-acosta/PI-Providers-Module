@@ -8,6 +8,7 @@ import { ModuleProvidersComponent } from './module-providers.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeProviderComponent } from './home-provider/home-provider.component';
+import { RememberPasswordComponent } from './remember-password/remember-password.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HomeProviderComponent } from './home-provider/home-provider.component';
     RegisterComponent,
     LoginComponent,
     HomeProviderComponent,
+    RememberPasswordComponent,
   ],
   imports: [
     CommonModule,

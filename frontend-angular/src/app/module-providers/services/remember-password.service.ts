@@ -2,20 +2,19 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../../environments/environment';
-import { RegisterI } from '../interfaces/Interfaces';
+import { RememberPassowrdI } from '../interfaces/Interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class RememberPasswordService {
 
   endpoint = environment.endpoint
 
   constructor(private http: HttpClient) { }
 
-  registerUser (user: RegisterI): Observable<any> {
-    return this.http.post(`${this.endpoint}/register`, user)
+  rememberPassword (email: RememberPassowrdI): Observable<any> {
+    return this.http.post(`${this.endpoint}/remember-password`, email)
   }
-
 
 }

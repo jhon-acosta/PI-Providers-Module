@@ -11,3 +11,7 @@ export interface RegisterI {
   filePdf?: string,
   province: string
 }
+
+export interface RememberPassowrdI {
+  email: string,
+}
