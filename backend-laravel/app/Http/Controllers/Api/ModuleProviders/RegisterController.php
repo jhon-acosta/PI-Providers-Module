@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -20,17 +21,21 @@ class RegisterController extends Controller
         $characters = '0123456789';
         $randomCode = substr(str_shuffle($characters), 0, 6);
 
+        $file=$request->file('file');
+        $pdf=$file->storeAs('provider_pdf', $file->getClientOriginalName(),'public');
+        $img ='https://img.icons8.com/ultraviolet/80/000000/user.png';
+        $dataUser=json_decode($request->user,true);
         $user = new User();
-        $user->roleId = $request->roleId;
-        $user->typeId = $request->typeId;
-        $user->numberIdentification = $request->numberIdentification;
-        $user->names = $request->names;
-        $user->surnames = $request->surnames;
-        $user->email = $request->email;
-        $user->cellPhone = $request->cellPhone;
-        $user->markImage = $request->markImage;
-        $user->filePdf = $request->filePdf;
-        $user->province = $request->province;
+        $user->roleId = $dataUser['roleId'];
+        $user->typeId = $dataUser['typeId'];
+        $user->numberIdentification = $dataUser['numberIdentification'];
+        $user->names = $dataUser['names'];
+        $user->surnames = $dataUser['surnames'];
+        $user->email = $dataUser['email'];
+        $user->cellPhone = $dataUser['cellPhone'];
+        $user->markImage = $img;
+        $user->filePdf = $pdf;
+        $user->province = $dataUser['province'];
         $user->codeForVerfication = $randomCode;
         $user->statusEmailVerified = 0;
         /**
@@ -56,7 +61,7 @@ class RegisterController extends Controller
             'title' => 'Código de verificación',
             'body' => $user->codeForVerfication
         ];
-        Mail::to($user->email)->send(new SendMail($details));
+        // Mail::to($user->email)->send(new SendMail($details));
 
         /**
          * Successful response 
@@ -67,8 +72,12 @@ class RegisterController extends Controller
                     'id' => $user->id,
                     'typeId' => $user->typeId,
                     'email' => $user->email,
+                    
+                ],
+                'message' =>[
+                    'summary'=>'Successfully created'
                 ]
-            ], 200);
+            ], 201);
         }
     }
 

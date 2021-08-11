@@ -3,7 +3,8 @@ import { RegisterI } from '../interfaces/Interfaces';
 import { RegisterService } from '../services/register.service';
 import { RolesService } from '../services/roles.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';
-import provinces  from '../utils/provinces.json'
+import provinces  from '../utils/provinces.json';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'register-component',
@@ -29,10 +30,14 @@ export class RegisterComponent implements OnInit {
   typesIdentifications: Array<{ id: number, description: string}>
   provincesEc: Array<{ provincia: string }>
 
+  public preview: string;
+  public avatar:any;
+
   constructor(
     private _roles:RolesService, 
     private _typesIdentifications:TypesIdentificationsService,
     private _register: RegisterService,
+    private _sanitizer:DomSanitizer
     ) {}
 
   getAllRoles () {
@@ -63,12 +68,56 @@ export class RegisterComponent implements OnInit {
   async test () {
     try {
       console.log(this.data)
-      await this._register.registerUser(this.data).subscribe()
+      const dataUser=new FormData();
+    dataUser.append('file',this.data.filePdf);
+    dataUser.append('user', JSON.stringify(this.data));
+      await this._register.registerUser(dataUser).subscribe(
+        res=>{
+               console.log(res)
+               console.log(res['message']['summary']);
+        })
       console.log('registrado')  
     } catch (error) {
       console.log(error)
     }
   }
+
+  //file pdf
+  captureFile(event): void{
+    const captureFiles = event.target.files[0];
+    this.extractBase64(captureFiles).then((repository:any) =>{
+      this.preview = repository.base;
+      //console.log(repository);
+    })
+    if('application/pdf'=== captureFiles.type){
+      this.data.filePdf=captureFiles;
+    }else{
+      console.log('No es un pdf')
+    }
+    
+  }
+  extractBase64 = async ($event: any) => new Promise((resolve) => {
+    try {
+      const unsafeFile = window.URL.createObjectURL($event);
+      const image = this._sanitizer.bypassSecurityTrustUrl(unsafeFile);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+
+    } catch (e) {
+      return null;
+    }
+  })
+
   ngOnInit(): void {
     this.getAllRoles()
     this.getAllTypesIdentifications()
