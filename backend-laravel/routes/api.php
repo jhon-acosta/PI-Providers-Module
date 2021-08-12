@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/currentUser', [LoginController::class, 'currentUser']);
 });
 Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/authGoogle', [RegisterController::class, 'authGoogle']);
 Route::post('/account-verification', [RegisterController::class, 'accountVerification']);
 Route::post('/remember-password', [PasswordController::class, 'rememberPassword']);
 

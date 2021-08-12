@@ -120,4 +120,20 @@ class RegisterController extends Controller
             ]
         ]);
     }
+
+    public function authGoogle (Request $request) 
+    {
+        $user = new User();
+        $user->roleId = $request->roleId;
+        $user->email = $request->email;
+        $passwordMoreSomething = "3CV{$request->password}5H0PpH1n";
+        $user->password = Hash::make($passwordMoreSomething);
+        if($user->save()){
+            return response()->json([
+                'data' => [
+                    'email' => $user->email,
+                ]
+            ], 201);
+        }
+    }
 }
