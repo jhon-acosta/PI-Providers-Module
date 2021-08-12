@@ -41,7 +41,7 @@ class RegisterController extends Controller
         /**
          * Password encryption
          */
-        $passwordMoreSomething = '3CV'.$request->password.'5H0PpH1n';
+        $passwordMoreSomething = "3CV{$dataUser['password']}5H0PpH1n";
         $user->password = Hash::make($passwordMoreSomething);
         /**
          * Validation for mail
@@ -69,10 +69,7 @@ class RegisterController extends Controller
         if($user->save()){
             return response()->json([
                 'data' => [
-                    'id' => $user->id,
-                    'typeId' => $user->typeId,
                     'email' => $user->email,
-                    
                 ],
                 'message' =>[
                     'summary'=>'Successfully created'
