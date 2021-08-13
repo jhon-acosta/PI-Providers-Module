@@ -126,6 +126,10 @@ class RegisterController extends Controller
         $user = new User();
         $user->roleId = $request->roleId;
         $user->email = $request->email;
+        $user->names = $request->names; 
+        $user->surnames = $request->surnames; 
+        $user->cellPhone = $request->cellPhone;
+        
         $passwordMoreSomething = "3CV{$request->password}5H0PpH1n";
         $user->password = Hash::make($passwordMoreSomething);
         if($user->save()){

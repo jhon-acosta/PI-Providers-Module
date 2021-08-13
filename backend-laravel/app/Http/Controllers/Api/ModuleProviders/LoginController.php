@@ -65,6 +65,8 @@ class LoginController extends Controller
                     'email' => $current->email,
                     'cellPhone' => $current->cellPhone,
                     'province' => $current->province,
+                    'markImage' => $current->markImage,
+                    'filePdf' => $current->filePdf,
                 ]
             ], 200);
         } else {
