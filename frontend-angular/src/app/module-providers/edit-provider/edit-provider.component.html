@@ -1,0 +1,52 @@
+<br>
+<h1 class="text-center" style="margin-top: 50px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">Editar perfil proveedor</h1>
+<div class="container mb-4">
+    <form (ngSubmit)="updateUser()">
+        <div class="form-group" style="margin-right: 50%;">
+          <label for="placa">Nombre</label>
+          <input type="text" name="placa" class="form-control" [(ngModel)]="users.names">
+        </div>
+        <div class="form-group" style="margin-right: 50%;">
+            <label for="model">Apellido</label>
+            <input type="text" name="model" class="form-control" [(ngModel)]="users.surnames">
+          </div>
+          
+          <div class="form-group" style="margin-right: 50%;">
+            <label for="name">Teléfono</label>
+            <input type="text" name="name" class="form-control" [(ngModel)]="users.cellPhone">
+          </div>
+          <div class="form-group" style="margin-right: 50%;">
+            <label for="marca">Provincia</label>
+            <select
+                    [(ngModel)]="users.province"
+                    name="province"
+                    class="form-control" 
+                  >
+                    <option selected>Seleccionar...</option>
+                    <option
+                      *ngFor="let province of provincesEc"
+                      [value]="province.provincia"
+                    >
+                      {{ province.provincia }}
+                    </option>
+                  </select>
+          </div>
+          <div class="form-group">
+            <label for="image" >Logo</label>
+            <input type="file" (change)="captureImg($event)" name="markImage" class="form-control" [(ngModel)]="users.markImage" accept=".png, .jpg, .jpeg">
+          </div>
+          <div *ngIf = "preview; else Block">
+            <img [src] = "preview" alt = "">
+          </div>
+          <ng-template #Block>
+            <img src='{{avatar}}' alt="">
+          </ng-template>
+          <br>
+          <div class="form-group" >
+            <label for="pdf" >Archivo PDF</label>
+            <input type="file" (change)="captureFile($event)" name="filePdf" class="form-control" [(ngModel)]="users.filePdf" accept=".pdf">
+          </div>
+        <button class="btn btn-dark mt-4 mr-2">Actualizar</button>
+        <button class="btn btn-danger mt-4 ml-2" routerLink="moduleProviders/profile-user">Regresar</button>
+      </form>
+</div>
