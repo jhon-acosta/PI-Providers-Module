@@ -22,21 +22,21 @@ class CreateUsersTable extends Migration
              * Foreign keys
              */
             $table->unsignedBigInteger('roleId');
-            $table->unsignedBigInteger('typeId');
+            $table->unsignedBigInteger('typeId')->nullable();
             /**
              * Fileds
              */
-            $table->string('numberIdentification', 13);
-            $table->string('names', 50);
-            $table->string('surnames', 50);
+            $table->string('numberIdentification', 13)->nullable();
+            $table->string('names', 50)->nullable();
+            $table->string('surnames', 50)->nullable();
             $table->string('email', 50)->unique();
             $table->string('password');
-            $table->string('cellPhone', 10);
-            $table->string('markImage')->nullable();
+            $table->string('cellPhone', 10)->nullable();
+            $table->string('markImage')->nullable()->nullable();
             $table->string('filePdf')->nullable();
-            $table->string('codeForVerfication', 6);
-            $table->boolean('statusEmailVerified');
-            $table->string('province', 50);
+            $table->string('codeForVerfication', 6)->nullable();
+            $table->boolean('statusEmailVerified')->nullable();
+            $table->string('province', 50)->nullable();
             /**
              * Relationship
              */

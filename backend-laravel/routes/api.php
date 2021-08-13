@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ModuleProviders\RoleController;
 use App\Http\Controllers\Api\ModuleProviders\UserController;
+use App\Http\Controllers\Api\ModuleProviders\LoginController;
 use App\Http\Controllers\Api\ModuleProviders\RegisterController;
 use App\Http\Controllers\Api\ModuleProviders\PasswordController;
 use App\Http\Controllers\Api\ModuleProviders\TypeIdentificacionController;
@@ -18,7 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // registro
+Route::post('/login', [LoginController::class, 'login']);
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::post('/currentUser', [LoginController::class, 'currentUser']);
+});
 Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/authGoogle', [RegisterController::class, 'authGoogle']);
 Route::post('/account-verification', [RegisterController::class, 'accountVerification']);
 Route::post('/remember-password', [PasswordController::class, 'rememberPassword']);
 
