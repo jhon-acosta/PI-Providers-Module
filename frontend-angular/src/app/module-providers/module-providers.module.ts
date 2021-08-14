@@ -9,6 +9,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeProviderComponent } from './home-provider/home-provider.component';
 import { RememberPasswordComponent } from './remember-password/remember-password.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import { RememberPasswordComponent } from './remember-password/remember-password
   imports: [
     CommonModule,
     ModuleProvidersRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   exports: [
     ModuleProvidersComponent

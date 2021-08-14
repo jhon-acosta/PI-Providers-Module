@@ -1,0 +1,19 @@
+ 
+
+  .btn-google{
+    background-color: #dd4b39;
+    color: #fff;
+    width: 100%;
+  }
+
+  .btn-ingresar{
+    background-color: #0077ff;
+    color: #fff;
+    width: 100%;
+  }
+  .bg-login{
+    background-image: url('../../../assets/img/login.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
