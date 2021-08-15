@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { AngularFireModule } from '@angular/fire';
@@ -12,7 +15,11 @@ import { ModuleProvidersComponent } from './module-providers.component';
 import { HomeProviderComponent } from './home-provider/home-provider.component';
 import { ModuleProvidersRoutingModule } from './module-providers-routing.module';
 import { RememberPasswordComponent } from './remember-password/remember-password.component';
+import { ProfileProviderComponent } from './profile-provider/profile-provider.component';
+import { EditProviderComponent } from './edit-provider/edit-provider.component';
 
+// Interceptors
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,16 +28,26 @@ import { RememberPasswordComponent } from './remember-password/remember-password
     HomeProviderComponent,
     ModuleProvidersComponent,
     RememberPasswordComponent,
+    ProfileProviderComponent,
+    EditProviderComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule,
     AngularFireAuthModule,
     ModuleProvidersRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ModuleProvidersComponent
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthService,
+      multi: true
+    }
   ]
 })
 export class ModuleProvidersModule { }

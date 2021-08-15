@@ -1,0 +1,42 @@
+<section id="work" class="portfolio-mf sect-pt4 route m-t-40 container" style="margin-top: 30px;">
+	<div class="mb-4 text-center">
+		<h2 class="title-a">
+			Detalles de Proveedor
+		</h2>
+		<div class="line-mf"></div>
+	</div>
+    
+<!-- Datos de usuario -->
+        <div class="card">
+            <div class="card-header text-center">
+                <h2 class="text-info">{{user.names}} {{user.surnames}}</h2>
+                <h3 class="text-info">{{user.email}}</h3>
+            </div>
+        </div>
+        <!-- Data of provider -->
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="text-info">Perfil</h3>
+            </div>
+            <div class="card-body text-center" style="font-size:large">
+                <div class="thumbnail" style="align-content: center">
+                    <img src='{{avatar}}'>
+                </div>
+                <div class="pb-1">
+                    Provincia : {{user.province}}
+                 </div>
+                <div class="text-primary">
+                    N° de identificación : {{user.numberIdentification}}
+                </div>
+                <div class="pb-1">
+                    Certificado Ruc : 
+                    <a href="http://127.0.0.1:8000/storage/{{user.filePdf}}" target="_blank">{{nameDoc}}</a>
+                </div>
+                <div class="pb-1">
+                   N° de teléfono : {{user.cellPhone}}
+                </div>
+                <button class="btn btn-primary" routerLink="edit/{{user.id}}">Editar perfil</button>
+            </div>
+        </div>
+</section>
+

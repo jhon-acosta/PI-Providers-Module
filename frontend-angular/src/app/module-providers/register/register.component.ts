@@ -31,7 +31,9 @@ export class RegisterComponent implements OnInit {
   provincesEc: Array<{ provincia: string }>
 
   public preview: string;
-  public avatar: any;
+  public avatar:any;
+  public captureFiles:any;
+  public hiddenRuc:boolean=false;
 
   constructor(
     private _roles: RolesService,
@@ -43,7 +45,7 @@ export class RegisterComponent implements OnInit {
   getAllRoles() {
     this._roles.getAllRoles().subscribe(response => {
       try {
-        this.roles = response.data.filter(x => x.description !== 'admin')
+        this.roles = response.data.filter(x => x.description !== 'Administrador')
       } catch (error) {
         console.log(error)
       }
@@ -65,7 +67,16 @@ export class RegisterComponent implements OnInit {
     this.provincesEc = provinces
   }
 
-  async register() {
+  captureInputRol(event):void {
+    console.log(event)
+    if(event == 'Comprador'){
+      this.hiddenRuc=true;
+    }else{
+      this.hiddenRuc=false;
+    }
+  }
+
+  async register () {
     try {
       console.log(this.data)
       const dataUser = new FormData();
@@ -83,18 +94,23 @@ export class RegisterComponent implements OnInit {
   }
 
   //file pdf
-  captureFile(event): void {
-    const captureFiles = event.target.files[0];
-    this.extractBase64(captureFiles).then((repository: any) => {
+  captureFile(event): void{
+    this.data.filePdf=event.target.files[0];
+    if(this.captureFiles == null){
+      this.captureFiles = event.target.files[0];
+    this.extractBase64(this.captureFiles).then((repository:any) =>{
       this.preview = repository.base;
       //console.log(repository);
     })
-    if ('application/pdf' === captureFiles.type) {
-      this.data.filePdf = captureFiles;
-    } else {
+    if('application/pdf'=== this.captureFiles.type){
+      this.data.filePdf=this.captureFiles;
+      this.captureFiles=this.data.filePdf
+      console.log(this.data.filePdf)
+    }else{
       console.log('No es un pdf')
     }
-
+    }
+    
   }
   extractBase64 = async ($event: any) => new Promise((resolve) => {
     try {

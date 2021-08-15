@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {RegisterComponent} from './module-providers/register/register.component'
+import { ProfileProviderComponent } from './module-providers/profile-provider/profile-provider.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  //Register 
-  { path: 'register', component: RegisterComponent},
+  {path:'profile-user', component: ProfileProviderComponent}
 ];
 
 @NgModule({

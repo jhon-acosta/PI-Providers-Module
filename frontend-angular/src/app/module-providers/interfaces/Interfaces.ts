@@ -1,4 +1,5 @@
 export interface RegisterI {
+  id?: number,
   roleId: number,
   typeId: number,
   numberIdentification: string,
