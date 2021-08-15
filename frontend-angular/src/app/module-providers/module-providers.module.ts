@@ -17,6 +17,8 @@ import { ModuleProvidersRoutingModule } from './module-providers-routing.module'
 import { RememberPasswordComponent } from './remember-password/remember-password.component';
 import { ProfileProviderComponent } from './profile-provider/profile-provider.component';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Interceptors
 import { AuthService } from './services/auth.service';
@@ -37,7 +39,9 @@ import { AuthService } from './services/auth.service';
     ModuleProvidersRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   exports: [
     ModuleProvidersComponent

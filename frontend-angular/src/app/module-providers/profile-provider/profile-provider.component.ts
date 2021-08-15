@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../services/user.service';
 import { RegisterI } from '../interfaces/Interfaces';
-import { RolesService } from '../services/roles.service';
+
 @Component({
   selector: 'app-profile-provider',
   templateUrl: './profile-provider.component.html',
