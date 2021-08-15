@@ -44,8 +44,7 @@
                         (click)="captureInputRol(role.description)"
                       >
                       <label class="form-check-label">
-                        <span *ngIf="role.description === 'client'">Cliente</span>
-                        <span *ngIf="role.description === 'provider'">Proveedor</span>
+                        <span>{{ role.description }}</span>
                       </label>
                     </div>
                   </div>
@@ -111,7 +110,6 @@
                         type="file" 
                         (change)="captureFile($event)" 
                         placeholder="Ingrese archivo pdf" 
-                         [(ngModel)]="captureFiles"
                          accept=".pdf"
                          required
                       />

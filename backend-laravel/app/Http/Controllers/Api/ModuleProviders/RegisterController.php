@@ -20,9 +20,12 @@ class RegisterController extends Controller
          */
         $characters = '0123456789';
         $randomCode = substr(str_shuffle($characters), 0, 6);
-
-        $file=$request->file('file');
-        $pdf=$file->storeAs('provider_pdf', $file->getClientOriginalName(),'public');
+        if (DB::table('roles')->where('id', $request->roleId)->value('description') === 'Proveedor'){
+            $file=$request->file('file');
+            $pdf=$file->storeAs('provider_pdf', $file->getClientOriginalName(),'public');
+            $user->filePdf = $pdf;
+        }
+       
         $img ='https://img.icons8.com/ultraviolet/80/000000/user.png';
         $dataUser=json_decode($request->user,true);
         $user = new User();
@@ -34,7 +37,6 @@ class RegisterController extends Controller
         $user->email = $dataUser['email'];
         $user->cellPhone = $dataUser['cellPhone'];
         $user->markImage = $img;
-        $user->filePdf = $pdf;
         $user->province = $dataUser['province'];
         $user->codeForVerfication = $randomCode;
         $user->statusEmailVerified = 0;
