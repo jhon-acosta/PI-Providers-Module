@@ -6,10 +6,10 @@ import { RegisterComponent } from './register/register.component';
 import { RememberPasswordComponent } from './remember-password/remember-password.component';
 
 const routes: Routes = [
-  { path: 'moduleProviders/provider/home', component: HomeProviderComponent },
-  { path: 'moduleProviders/register', component: RegisterComponent },
-  { path: 'moduleProviders/login', component: LoginComponent },
-  { path: 'moduleProviders/rememberPassword', component: RememberPasswordComponent },
+  { path: 'ecuShopping/provider/home', component: HomeProviderComponent },
+  { path: 'ecuShopping/register', component: RegisterComponent },
+  { path: 'ecuShopping/login', component: LoginComponent },
+  { path: 'ecuShopping/rememberPassword', component: RememberPasswordComponent },
 ];
 
 @NgModule({

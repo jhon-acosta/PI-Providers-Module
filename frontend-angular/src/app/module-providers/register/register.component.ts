@@ -3,7 +3,7 @@ import { RegisterI } from '../interfaces/Interfaces';
 import { RegisterService } from '../services/register.service';
 import { RolesService } from '../services/roles.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';
-import provinces  from '../utils/provinces.json';
+import provinces from '../utils/provinces.json';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -12,35 +12,35 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  public data: RegisterI = {
+  data: RegisterI = {
     roleId: 0,
     typeId: 0,
     numberIdentification: '',
     names: '',
-    surnames: '',
+    surnames: '', 
     email: '',
     password: '',
     cellPhone: '',
     markImage: '',
     filePdf: '',
-    province:''
+    province: ''
   }
   public confirmPassword = ''
-  roles: Array<{ id: number, description: string}>
-  typesIdentifications: Array<{ id: number, description: string}>
+  roles: Array<{ id: number, description: string }>
+  typesIdentifications: Array<{ id: number, description: string }>
   provincesEc: Array<{ provincia: string }>
 
   public preview: string;
-  public avatar:any;
+  public avatar: any;
 
   constructor(
-    private _roles:RolesService, 
-    private _typesIdentifications:TypesIdentificationsService,
+    private _roles: RolesService,
+    private _typesIdentifications: TypesIdentificationsService,
     private _register: RegisterService,
-    private _sanitizer:DomSanitizer
-    ) {}
+    private _sanitizer: DomSanitizer
+  ) { }
 
-  getAllRoles () {
+  getAllRoles() {
     this._roles.getAllRoles().subscribe(response => {
       try {
         this.roles = response.data.filter(x => x.description !== 'admin')
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  getAllTypesIdentifications () {
+  getAllTypesIdentifications() {
     this._typesIdentifications.getAllTypesIdentifications().subscribe(response => {
       try {
         this.typesIdentifications = response.data
@@ -61,40 +61,40 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  getProvinces () {
+  getProvinces() {
     this.provincesEc = provinces
   }
 
-  async test () {
+  async register() {
     try {
       console.log(this.data)
-      const dataUser=new FormData();
-    dataUser.append('file',this.data.filePdf);
-    dataUser.append('user', JSON.stringify(this.data));
+      const dataUser = new FormData();
+      dataUser.append('file', this.data.filePdf);
+      dataUser.append('user', JSON.stringify(this.data));
       await this._register.registerUser(dataUser).subscribe(
-        res=>{
-               console.log(res)
-               console.log(res['message']['summary']);
+        res => {
+          console.log(res)
+          console.log(res['message']['summary']);
         })
-      console.log('registrado')  
+      console.log('registrado')
     } catch (error) {
       console.log(error)
     }
   }
 
   //file pdf
-  captureFile(event): void{
+  captureFile(event): void {
     const captureFiles = event.target.files[0];
-    this.extractBase64(captureFiles).then((repository:any) =>{
+    this.extractBase64(captureFiles).then((repository: any) => {
       this.preview = repository.base;
       //console.log(repository);
     })
-    if('application/pdf'=== captureFiles.type){
-      this.data.filePdf=captureFiles;
-    }else{
+    if ('application/pdf' === captureFiles.type) {
+      this.data.filePdf = captureFiles;
+    } else {
       console.log('No es un pdf')
     }
-    
+
   }
   extractBase64 = async ($event: any) => new Promise((resolve) => {
     try {

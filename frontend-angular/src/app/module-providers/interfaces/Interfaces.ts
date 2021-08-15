@@ -15,3 +15,8 @@ export interface RegisterI {
 export interface RememberPassowrdI {
   email: string,
 }
+
+export interface LoginI {
+  email:string,
+  password: string
+}

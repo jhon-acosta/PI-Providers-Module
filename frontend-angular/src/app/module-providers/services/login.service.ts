@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from 'firebase/app';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
-export class AuthgoogleService {
-  constructor(private auth: AngularFireAuth) {
-    auth.authState.subscribe((user) => {
-      console.log(user);
-    });
-  }
+export class LoginService {
 
-  googleAuth() {
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  endpoint = environment.endpoint
+
+  constructor(private http: HttpClient) { }
+
+  login(data) {
+    return this.http.post(`${this.endpoint}/login`, data)
   }
 }

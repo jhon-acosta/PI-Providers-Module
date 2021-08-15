@@ -30,7 +30,7 @@
                   sans-serif
                 "
               >
-                Iniciar Sesión en Ecu-Shopping
+                Iniciar Sesión
               </h5>
               <form>
                 <div style="text-align: center">
@@ -45,32 +45,51 @@
                   <input
                     type="email"
                     class="form-control"
-                    id="floatingInput"
                     placeholder="name@example.com"
+                    name="email"
+                    [(ngModel)]="data.email"
                   />
-                  <label for="floating">Email</label>
+                  <label for="floating">Correo electrónico</label>
                 </div>
                 <div class="form-floating mb-4">
                   <input
                     type="password"
                     class="form-control"
-                    id="floatingPassword"
                     placeholder="Password"
+                    name="password"
+                    [(ngModel)]="data.password"
                   />
 
                   <label for="floating">Contraseña</label>
                 </div>
 
                 <div class="d-grid mb-4">
-                  <button class="btn btn-lg btn-ingresar" type="submit">
+                  <button
+                    class="btn btn-lg btn-ingresar"
+                    type="submit"
+                    (click)="login()"
+                  >
                     Ingresar
                   </button>
                 </div>
 
                 <div class="form-group mt-4">
-                  <button (click)="AuthGoogle()" class="btn btn-lg btn-google">
+                  <button (click)="authGoogle()" class="btn btn-lg btn-google">
                     Ingresa con Google
                   </button>
+                </div>
+                <div class="mt-4 justify-content-center align-items-center">
+                  <p
+                    class="textFooter"
+                    [routerLink]="['/ecuShopping/rememberPassword']">
+                      ¿Olvidó su contraseña?
+                    </p>
+                  <p
+                    class="textFooter"
+                    [routerLink]="['/ecuShopping/register']"
+                  >
+                    ¿No tiene cuenta? <b>Registrarse</b>
+                  </p>
                 </div>
               </form>
             </div>
