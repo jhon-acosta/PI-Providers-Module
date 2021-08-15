@@ -32,6 +32,8 @@ export class RegisterComponent implements OnInit {
 
   public preview: string;
   public avatar:any;
+  public captureFiles:any;
+  public hiddenRuc:boolean=false;
 
   constructor(
     private _roles:RolesService, 
@@ -65,6 +67,15 @@ export class RegisterComponent implements OnInit {
     this.provincesEc = provinces
   }
 
+  captureInputRol(event):void {
+    console.log(event)
+    if(event == 'client'){
+      this.hiddenRuc=true;
+    }else{
+      this.hiddenRuc=false;
+    }
+  }
+
   async test () {
     try {
       console.log(this.data)
@@ -84,7 +95,8 @@ export class RegisterComponent implements OnInit {
 
   //file pdf
   captureFile(event): void{
-    const captureFiles = event.target.files[0];
+    if(this.captureFiles == null){
+      const captureFiles = event.target.files[0];
     this.extractBase64(captureFiles).then((repository:any) =>{
       this.preview = repository.base;
       //console.log(repository);
@@ -93,6 +105,7 @@ export class RegisterComponent implements OnInit {
       this.data.filePdf=captureFiles;
     }else{
       console.log('No es un pdf')
+    }
     }
     
   }

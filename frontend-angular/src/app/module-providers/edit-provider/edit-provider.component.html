@@ -33,7 +33,8 @@
           </div>
           <div class="form-group">
             <label for="image" >Logo</label>
-            <input type="file" (change)="captureImg($event)" name="markImage" class="form-control" [(ngModel)]="users.markImage" accept=".png, .jpg, .jpeg">
+            <input type="file" (change)="captureImg($event)" 
+            name="markImage" class="form-control" [(ngModel)]="captureImages" accept=".png, .jpg, .jpeg">
           </div>
           <div *ngIf = "preview; else Block">
             <img [src] = "preview" alt = "">
@@ -44,9 +45,10 @@
           <br>
           <div class="form-group" >
             <label for="pdf" >Archivo PDF</label>
-            <input type="file" (change)="captureFile($event)" name="filePdf" class="form-control" [(ngModel)]="users.filePdf" accept=".pdf">
+            <input type="file" (change)="captureFile($event)" 
+            name="filePdf" class="form-control" [(ngModel)]="captureFiles" accept=".pdf">
           </div>
         <button class="btn btn-dark mt-4 mr-2">Actualizar</button>
-        <button class="btn btn-danger mt-4 ml-2" routerLink="moduleProviders/profile-user">Regresar</button>
       </form>
+       <button class="btn btn-danger mt-4 ml-2" routerLink="/moduleProviders/profile-user">Regresar</button>
 </div>

@@ -12,7 +12,7 @@ export class ProfileProviderComponent implements OnInit {
 
   
   //esta variable es temporal hasta poder acceder al localstorage o route id 
-  public id:string='25';
+  public id:any=12;
   public user:RegisterI={
     roleId: 0,
     typeId: 0,
@@ -32,13 +32,15 @@ export class ProfileProviderComponent implements OnInit {
   public nameDoc:any;
 
   ngOnInit(): void {
-    this.getUser();
+  
+    this.getCurrentProvider();
+    
   }
 
-  getUser(){
-    this.api.getUserById(this.id).subscribe(res=>{
-      if(res.data.roleId==2){
-        this.user=res.data;
+  getCurrentProvider(){
+    this.api.getCurrentUser().subscribe(res=>{
+      if(res['data']['roleId'] == 3){
+        this.user=res['data'];
         this.urlPdf=this.user.filePdf;
         this.nameDoc=this.urlPdf.slice(13);
 
@@ -47,7 +49,7 @@ export class ProfileProviderComponent implements OnInit {
           }else{
             this.avatar=`http://127.0.0.1:8000/storage/${this.user.markImage}`;
           }
-        console.log(this.user.names);
+          console.log(res['data']);
       }
     })
   }

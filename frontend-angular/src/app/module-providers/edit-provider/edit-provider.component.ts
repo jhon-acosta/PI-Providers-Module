@@ -12,16 +12,20 @@ import provinces  from '../utils/provinces.json';
 })
 export class EditProviderComponent implements OnInit {
 
+
   public users = new User();
   public preview: string;
   public id:any;
   public avatar:any;
   public urlAvatar:string='https://img.icons8.com/ultraviolet/80/000000/user.png';
    provincesEc: Array<{ provincia: string }>
+  public captureFiles:any;
+  public captureImages:any;
 
   constructor( private _route:ActivatedRoute, 
     private _api:UserService, 
-    private _sanitizer:DomSanitizer,
+    private _sanitizer:DomSanitizer, 
+
     ) { }
 
   ngOnInit(): void {
@@ -30,13 +34,16 @@ export class EditProviderComponent implements OnInit {
     this.getProvinces();
   }
 
+
   getProvinces () {
     this.provincesEc = provinces
   }
 
   getDataUser(){
+      
     this._api.getUserById(this.id).subscribe(res=>{
       this.users=res['data'];
+      
       if(this.urlAvatar === this.users.markImage){
         this.avatar=this.users.markImage;
       }else{
@@ -58,27 +65,32 @@ export class EditProviderComponent implements OnInit {
 
   //file pdf
   captureFile(event): void{
-    const captureFiles = event.target.files[0];
-    this.extractBase64(captureFiles).then((repository:any) =>{
+    if(this.captureFiles == null){
+      
+    this.captureFiles = event.target.files[0];
+    this.extractBase64(this.captureFiles).then((repository:any) =>{
       console.log(repository);
     })
-    if('application/pdf'=== captureFiles.type){
-      this.users.filePdf=captureFiles;
+    if('application/pdf'=== this.captureFiles.type){
+      this.users.filePdf=this.captureFiles;
     }else{
       console.log('No es un pdf')
     }
+    }
     
   }
-  //file pdf
+  //file image
   captureImg(event): void{
-    const captureFiles = event.target.files[0];
-    this.extractBase64(captureFiles).then((img :any) =>{
+    if(this.captureImages == null){
+      this.captureImages = event.target.files[0];
+    this.extractBase64(this.captureImages).then((img :any) =>{
       this.preview = img.base;
     })
-    if('image/jpeg'=== captureFiles.type || 'image/jpg' === captureFiles.type || 'image/png' === captureFiles.type){
-      this.users.markImage=captureFiles;
+    if('image/jpeg'=== this.captureImages.type || 'image/jpg' === this.captureImages.type || 'image/png' === this.captureImages.type){
+      this.users.markImage=this.captureImages;
     }else{
       console.log('No es un formato de imagen')
+    }
     }
     
   }

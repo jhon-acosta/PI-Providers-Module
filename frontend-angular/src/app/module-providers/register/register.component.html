@@ -41,6 +41,7 @@
                         type="radio"
                         name="roleId"
                         [value]="role.id"
+                        (click)="captureInputRol(role.description)"
                       >
                       <label class="form-check-label">
                         <span *ngIf="role.description === 'client'">Cliente</span>
@@ -102,7 +103,7 @@
                         class="form-control form-control-sm" />
                     <label for="floatingPassword">Teléfono</label>
                   </div>
-                  <div class="form-floating mb-3 py-2">
+                  <div class="form-floating mb-3 py-2" [hidden]="hiddenRuc">
                     <input
                         class="form-control"
                         id="floatingInput"
@@ -110,7 +111,7 @@
                         type="file" 
                         (change)="captureFile($event)" 
                         placeholder="Ingrese archivo pdf" 
-                         [(ngModel)]="data.filePdf"
+                         [(ngModel)]="captureFiles"
                          accept=".pdf"
                          required
                       />
@@ -152,6 +153,7 @@
                       type="checkbox"
                       value=""
                       id="form2Example3c"
+                      required
                     />
                     <label class="form-check-label ms-2" for="form2Example3">
                       Aceptar los <a href="#!">Términos y condiciones de servicio</a>

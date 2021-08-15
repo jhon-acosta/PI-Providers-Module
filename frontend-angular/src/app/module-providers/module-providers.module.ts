@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { ModuleProvidersRoutingModule } from './module-providers-routing.module';
@@ -12,6 +15,8 @@ import { RememberPasswordComponent } from './remember-password/remember-password
 import { ProfileProviderComponent } from './profile-provider/profile-provider.component';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
 
+// Interceptors
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -26,10 +31,18 @@ import { EditProviderComponent } from './edit-provider/edit-provider.component';
   imports: [
     CommonModule,
     ModuleProvidersRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ModuleProvidersComponent
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthService,
+      multi: true
+    }
   ]
 })
 export class ModuleProvidersModule { }
