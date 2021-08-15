@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginI } from '../interfaces/Interfaces';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
     password: undefined  
   }
 
-  constructor(private auth: AngularFireAuth, private _login: LoginService) { }
+  constructor(private auth: AngularFireAuth, private _login: LoginService,private router: Router) { }
 
   async authGoogle(){
     try {
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
         if(localStorage.getItem('tokenEcuShopping')) {
           localStorage.removeItem('tokenEcuShopping');
         }
-        localStorage.setItem('tokenEcuShopping', response.data.token)
+        localStorage.setItem('tokenEcuShopping', response.data.token);
+        this.router.navigateByUrl('/moduleProviders/profile-user');
       })
     } catch (error) {
       console.log(error)

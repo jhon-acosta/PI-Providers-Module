@@ -21,6 +21,7 @@ export class EditProviderComponent implements OnInit {
    provincesEc: Array<{ provincia: string }>
   public captureFiles:any;
   public captureImages:any;
+  public hiddenRuc:boolean=false;
 
   constructor( private _route:ActivatedRoute, 
     private _api:UserService, 
@@ -43,7 +44,10 @@ export class EditProviderComponent implements OnInit {
       
     this._api.getUserById(this.id).subscribe(res=>{
       this.users=res['data'];
-      
+      if(res['data']['filePdf'] == null){
+        console.log('no hay pdf porque es rol cliente');
+        this.hiddenRuc=true;
+      }
       if(this.urlAvatar === this.users.markImage){
         this.avatar=this.users.markImage;
       }else{
@@ -65,8 +69,8 @@ export class EditProviderComponent implements OnInit {
 
   //file pdf
   captureFile(event): void{
+    this.users.filePdf=event.target.files[0];
     if(this.captureFiles == null){
-      
     this.captureFiles = event.target.files[0];
     this.extractBase64(this.captureFiles).then((repository:any) =>{
       console.log(repository);
@@ -81,17 +85,18 @@ export class EditProviderComponent implements OnInit {
   }
   //file image
   captureImg(event): void{
+    this.users.markImage=event.target.files[0];
     if(this.captureImages == null){
       this.captureImages = event.target.files[0];
-    this.extractBase64(this.captureImages).then((img :any) =>{
-      this.preview = img.base;
-    })
     if('image/jpeg'=== this.captureImages.type || 'image/jpg' === this.captureImages.type || 'image/png' === this.captureImages.type){
       this.users.markImage=this.captureImages;
     }else{
       console.log('No es un formato de imagen')
     }
     }
+    this.extractBase64(this.users.markImage).then((img :any) =>{
+      this.preview = img.base;
+    })
     
   }
   extractBase64 = async ($event: any) => new Promise((resolve) => {

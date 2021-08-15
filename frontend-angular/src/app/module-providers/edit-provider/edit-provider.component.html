@@ -1,5 +1,5 @@
 <br>
-<h1 class="text-center" style="margin-top: 50px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">Editar perfil proveedor</h1>
+<h1 class="text-center" style="margin-top: 50px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">Editar perfil del usuario</h1>
 <div class="container mb-4">
     <form (ngSubmit)="updateUser()">
         <div class="form-group" style="margin-right: 50%;">
@@ -37,13 +37,13 @@
             name="markImage" class="form-control" [(ngModel)]="captureImages" accept=".png, .jpg, .jpeg">
           </div>
           <div *ngIf = "preview; else Block">
-            <img [src] = "preview" alt = "">
+            <img src="{{ preview }}" alt = "">
           </div>
           <ng-template #Block>
             <img src='{{avatar}}' alt="">
           </ng-template>
           <br>
-          <div class="form-group" >
+          <div class="form-group" [hidden]="hiddenRuc">
             <label for="pdf" >Archivo PDF</label>
             <input type="file" (change)="captureFile($event)" 
             name="filePdf" class="form-control" [(ngModel)]="captureFiles" accept=".pdf">

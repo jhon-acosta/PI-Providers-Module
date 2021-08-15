@@ -1,7 +1,7 @@
 <section id="work" class="portfolio-mf sect-pt4 route m-t-40 container" style="margin-top: 30px;">
 	<div class="mb-4 text-center">
 		<h2 class="title-a">
-			Detalles de Proveedor
+			Detalles del Usuario
 		</h2>
 		<div class="line-mf"></div>
 	</div>
@@ -28,7 +28,7 @@
                 <div class="text-primary">
                     N° de identificación : {{user.numberIdentification}}
                 </div>
-                <div class="pb-1">
+                <div class="pb-1" [hidden]="hiddenRuc">
                     Certificado Ruc : 
                     <a href="http://127.0.0.1:8000/storage/{{user.filePdf}}" target="_blank">{{nameDoc}}</a>
                 </div>

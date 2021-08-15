@@ -31,7 +31,8 @@ export class AuthService {
       catchError((err: HttpErrorResponse) => {
 
         if (err.status === 401) {
-          this.router.navigateByUrl('/login');
+          //this.router.navigateByUrl('/moduleProviders/register');
+          console.error
         }
 
         return throwError( err );
