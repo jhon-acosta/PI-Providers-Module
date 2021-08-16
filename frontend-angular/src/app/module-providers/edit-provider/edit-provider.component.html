@@ -1,7 +1,7 @@
 <br>
 <h1 class="text-center"
   style="margin-top: 50px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">
-  Editar perfil del usuario</h1>
+  Información del usuario</h1>
 <div class="container mb-4">
   <form (ngSubmit)="updateUser()">
     <div class="form-group" style="margin-right: 50%;">
@@ -26,7 +26,7 @@
         </option>
       </select>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-right: 50%;">
       <label for="image">Logo</label>
       <input type="file" (change)="captureImg($event)" name="markImage" class="form-control" [(ngModel)]="captureImages"
         accept=".png, .jpg, .jpeg">
@@ -38,7 +38,7 @@
       <img src='{{avatar}}' alt="">
     </ng-template>
     <br>
-    <div class="form-group" [hidden]="hiddenRuc">
+    <div class="form-group" [hidden]="hiddenRuc" style="margin-right: 50%;">
       <label for="pdf">Archivo PDF</label>
       <input type="file" (change)="captureFile($event)" name="filePdf" class="form-control" [(ngModel)]="captureFiles"
         accept=".pdf">
