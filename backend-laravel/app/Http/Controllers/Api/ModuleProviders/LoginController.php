@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -23,8 +24,10 @@ class LoginController extends Controller
             Hash::check($passwordMoreSomething, $user->password)
         ) {
         $token = $user->createToken('EcuShopping')->accessToken;
+        $roleName = DB::table('roles')->where('id', $user->roleId)->value('description');
             return response()->json([
                 "data" => [
+                    "role" => $roleName,
                     "email" => $user->email,
                     "token" => $token,
                 ]

@@ -21,3 +21,8 @@ export interface LoginI {
   email:string,
   password: string
 }
+
+export interface RoleI {
+  id?: string,
+  description: string
+}
