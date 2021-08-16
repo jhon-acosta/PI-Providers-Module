@@ -4,7 +4,9 @@ import { RegisterService } from '../services/register.service';
 import { RolesService } from '../services/roles.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';
 import provinces from '../utils/provinces.json';
+import dataGoogle from '../utils/dataSimulation.json'
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'register-component',
@@ -34,12 +36,14 @@ export class RegisterComponent implements OnInit {
   public avatar:any;
   public captureFiles:any;
   public hiddenRuc:boolean=false;
+  public hiddenData:boolean=false;
 
   constructor(
     private _roles: RolesService,
     private _typesIdentifications: TypesIdentificationsService,
     private _register: RegisterService,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private router: Router
   ) { }
 
   getAllRoles() {
@@ -76,11 +80,26 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  registerWithGoogle(){
+    this.hiddenData=true;
+    for (const itemData of dataGoogle) {
+      this.data.email=itemData.email;
+      this.data.password=itemData.password;
+      this.data.names=itemData.names;
+      this.data.surnames=itemData.surnames;
+      this.data.cellPhone=itemData.cellPhone;
+    }
+    console.log(dataGoogle);
+  }
+
   async register () {
     try {
       console.log(this.data)
       const dataUser = new FormData();
       dataUser.append('file', this.data.filePdf);
+      if(this.hiddenData == true){
+        dataUser.append('user', JSON.stringify(dataGoogle));
+      }
       dataUser.append('user', JSON.stringify(this.data));
       await this._register.registerUser(dataUser).subscribe(
         res => {
@@ -88,6 +107,7 @@ export class RegisterComponent implements OnInit {
           console.log(res['message']['summary']);
         })
       console.log('registrado')
+      this.router.navigateByUrl('/moduleProviders/login');
     } catch (error) {
       console.log(error)
     }

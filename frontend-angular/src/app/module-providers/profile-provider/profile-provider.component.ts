@@ -36,6 +36,7 @@ export class ProfileProviderComponent implements OnInit {
 
   getCurrentProvider(){
     this.api.getCurrentUser().subscribe(res=>{
+      //revisar los roles, no se guardan los cambios
       if(res['data']['roleId'] > 0){
         this.user=res['data'];
         if(this.user.markImage === this.urlAvatar ){
