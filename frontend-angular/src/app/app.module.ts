@@ -5,6 +5,7 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModuleProvidersModule } from './module-providers/module-providers.module';
+import { ProviderEnviromentModule } from './provider-enviroment/provider-enviroment.module';
 
 @NgModule({
   declarations: [
@@ -13,10 +14,13 @@ import { ModuleProvidersModule } from './module-providers/module-providers.modul
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ModuleProvidersModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    //<=Modulos de proveedor(2)=>
+    ModuleProvidersModule,
+    ProviderEnviromentModule
+    // <=======================>
   ],
   providers: [],
   bootstrap: [AppComponent]
