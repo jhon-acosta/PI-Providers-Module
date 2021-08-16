@@ -24,16 +24,17 @@ export class LoginComponent implements OnInit {
   ) { }
 
   async authGoogle() {
-    try {
-      this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.auth.authState.subscribe((user) => {
-        console.log(user);
-        this.toastr.success('Hello world!', 'Toastr fun!');
-      });
-    } catch (error) {
-      this.toastr.success('Hello world!', 'Toastr fun!');
-      console.log(error.message)
-    }
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then((response: any) => {
+      this.data = {
+        ...this.data,
+        email: response.additionalUserInfo.profile.email,
+      }
+      return this.toastr.info('Su contraseña registrada', 'Ingrese, por favor');
+    })
+    .catch(err => {
+      return this.toastr.error('Cuenta no seleccionada', 'Error');
+    })
   }
 
   async login() {
