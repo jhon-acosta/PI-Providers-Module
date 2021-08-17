@@ -67,7 +67,7 @@ class RegisterController extends Controller
             'title' => 'Código de verificación',
             'body' => $user->codeForVerfication
         ];
-        // Mail::to($user->email)->send(new SendMail($details));
+        Mail::to($user->email)->send(new SendMail($details));
 
         /**
          * Successful response 

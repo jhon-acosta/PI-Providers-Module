@@ -49,3 +49,6 @@ Route::post('/typeIdentificacions', [TypeIdentificacionController::class, 'store
 Route::get('/typeIdentificacions/{id}', [TypeIdentificacionController::class, 'show']);
 Route::put('/typeIdentificacions/{id}', [TypeIdentificacionController::class, 'update']);
 Route::delete('/typeIdentificacions/{id}', [TypeIdentificacionController::class, 'destroy']);
+
+// test data
+Route::post('/roles/defaultData', [RoleController::class, 'defaultData']);

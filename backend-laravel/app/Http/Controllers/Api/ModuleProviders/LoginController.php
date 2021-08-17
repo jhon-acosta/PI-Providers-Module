@@ -21,7 +21,9 @@ class LoginController extends Controller
         $passwordMoreSomething = '3CV'.$request->password.'5H0PpH1n';
         if (
             $user &&
+            $user->statusEmailVerified == 1 &&
             Hash::check($passwordMoreSomething, $user->password)
+
         ) {
         $token = $user->createToken('EcuShopping')->accessToken;
         $roleName = DB::table('roles')->where('id', $user->roleId)->value('description');
@@ -32,7 +34,13 @@ class LoginController extends Controller
                     "token" => $token,
                 ]
             ]);
-        };  
+        } 
+        if ($user->statusEmailVerified == 0)
+        {
+            return response()->json([
+                "message" => "Account not verified"
+            ]);    
+        }   
         return response()->json([
             "message" => "Invalid password"
         ]);
