@@ -26,3 +26,8 @@ export interface RoleI {
   id?: string,
   description: string
 }
+
+export interface verifyAccountI {
+  email: string,
+  codeForVerfication: string
+}

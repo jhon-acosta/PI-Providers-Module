@@ -4,12 +4,14 @@ import { ToastrService } from 'ngx-toastr';
 import provinces from '../utils/provinces.json';
 import { Component, OnInit } from '@angular/core';
 import dataGoogle from '../utils/dataSimulation.json'
-import { RegisterI } from '../interfaces/Interfaces';
+import { RegisterI, verifyAccountI } from '../interfaces/Interfaces';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RolesService } from '../services/roles.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RegisterService } from '../services/register.service';
 import { TypesIdentificationsService } from '../services/types-identifications.service';
+import { VerifyAccountService } from '../services/verify-account.service';
+
 
 
 @Component({
@@ -19,6 +21,10 @@ import { TypesIdentificationsService } from '../services/types-identifications.s
 })
 
 export class RegisterComponent implements OnInit {
+  title = 'Registro en EcuShopping'
+  // title = "Verificar cuenta"
+  titleButton = "Registrarse"
+  // titleButton = "Verificar"
   data: RegisterI = {
     roleId: 0,
     typeId: 0,
@@ -31,6 +37,10 @@ export class RegisterComponent implements OnInit {
     markImage: '',
     filePdf: '',
     province: ''
+  }
+  dataVerify: verifyAccountI = {
+    email: undefined,
+    codeForVerfication: undefined
   }
   public confirmPassword = ''
   roles: Array<{ id: number, description: string }>
@@ -51,6 +61,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private auth: AngularFireAuth,
     private toastr: ToastrService,
+    private _verify: VerifyAccountService
   ) { }
 
   getAllRoles() {
@@ -103,21 +114,34 @@ export class RegisterComponent implements OnInit {
   }
 
   async register() {
-    try {
-      console.log(this.data)
-      const dataUser = new FormData();
-      dataUser.append('file', this.data.filePdf);
-      if (this.hiddenData == true) {
-        dataUser.append('user', JSON.stringify(dataGoogle));
-      }
-      dataUser.append('user', JSON.stringify(this.data));
-      await this._register.registerUser(dataUser).subscribe(res => {
-        console.log(res)
-        console.log(res['message']['summary']);
-        this.router.navigateByUrl('/moduleProviders/login');
-      })
-    } catch (error) {
-      console.log(error)
+    if (this.title === 'Registro en EcuShopping') {
+      try {
+        console.log(this.data)
+        const dataUser = new FormData();
+        dataUser.append('file', this.data.filePdf);
+        if (this.hiddenData == true) {
+          dataUser.append('user', JSON.stringify(dataGoogle));
+        }
+        dataUser.append('user', JSON.stringify(this.data));
+        await this._register.registerUser(dataUser).subscribe(res => {
+          console.log(res)
+          console.log(res['message']['summary']);
+          this.title = 'Verificar cuenta'
+          this.titleButton = 'Verificar'
+        })
+      } catch (error) { console.log(error) }
+    } else if(this.title === 'Verificar cuenta'){
+      try {
+        await this._verify.verifyAccount(this.dataVerify).subscribe((res: {
+          message: string
+        }) => {
+          if (res.message === 'error in code verification') {
+            return this.toastr.success('Código incorrecto', '');
+          }
+          this.toastr.success('Cuenta verificada', '');
+          this.router.navigateByUrl('/moduleProviders/login');
+        })
+      } catch (error) { console.log(error) }
     }
   }
 

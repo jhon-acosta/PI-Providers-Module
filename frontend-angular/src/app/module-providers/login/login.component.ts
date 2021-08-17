@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
       this.data.email == ''
     ) {
       return this.toastr.error('Correo electrónico inválido', 'Ops!');
+      //tener llaves de PASSPORT generadas
     } else if (!this.data.password) {
       return this.toastr
         .error('Contraseña inválido', 'Ops!')
@@ -52,6 +53,8 @@ export class LoginComponent implements OnInit {
         this.toastr.warning('Usuario no registrado', 'Ops!');
       } else if (localStorage.getItem('tokenEcuShopping')) {
         localStorage.removeItem('tokenEcuShopping');
+      } if (response.message === 'Account not verified') {
+        this.toastr.warning('Verifique su cuenta', 'Ops!');
       }
       this.check = true
       localStorage.setItem('tokenEcuShopping', response.data.token)
