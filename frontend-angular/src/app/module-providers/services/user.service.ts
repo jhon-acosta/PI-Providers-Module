@@ -18,13 +18,12 @@ export class UserService {
     return this.http.get(`${this.endpoint}/users/${id}`, {
     })
   }
+
   getCurrentUser(){
-   
     var reqHeader = new HttpHeaders({ 
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('tokenEcuShopping')
      });
-    
     return this.http.post(`${this.endpoint}/currentUser`,{ headers: reqHeader  })
   }
 
@@ -32,5 +31,5 @@ export class UserService {
     return this.http.post(`${this.endpoint}/users/${id}`,data);
   }
 
-
+  logou
 }
