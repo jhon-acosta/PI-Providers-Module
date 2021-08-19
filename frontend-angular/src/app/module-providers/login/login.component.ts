@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
       }
       this.check = true
       localStorage.setItem('tokenEcuShopping', response.data.token)
-      this.toastr.success('Inicio exitosó', '');
+      this.toastr.success('Sesión iniciada', '');
       if (response.data.role === 'Comprador') {
         // ruta de compador a se añadida
         // this.router.navigate(['/moduleProviders/provider/home']);
