@@ -94,25 +94,18 @@ class RegisterController extends Controller
             /**
              * Code validation
              */
-            if ($user->codeForVerfication === $request->codeForVerfication) {
+            if ($user->codeForVerfication == $request->codeForVerfication) {
                 /**
                  * StatusEmailVerified update
                  */
-                if (DB::table('users')->where('id', $user->id)
-                        ->update(['statusEmailVerified' => 1]))
-                {
+                DB::table('users')->where('id', $user->id)
+                    ->update(['statusEmailVerified' => '1']);
                     return response()->json([
                         'data' => [
                             'id' => $user->id,
                             'email' => $user->email,
                         ]
                     ]);
-                } 
-                return response()->json([
-                    'error' => [
-                        'message' => 'error verifying account'
-                    ]
-                ]);    
             }
             return response()->json([
                 'error' => [

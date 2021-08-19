@@ -39,8 +39,8 @@ export class RegisterComponent implements OnInit {
     province: ''
   }
   dataVerify: verifyAccountI = {
-    email: undefined,
-    codeForVerfication: undefined
+    email: '',
+    codeForVerfication: ''
   }
   public confirmPassword = ''
   roles: Array<{ id: number, description: string }>
@@ -116,7 +116,6 @@ export class RegisterComponent implements OnInit {
   async register() {
     if (this.title === 'Registro en EcuShopping') {
       try {
-        console.log(this.data)
         const dataUser = new FormData();
         dataUser.append('file', this.data.filePdf);
         if (this.hiddenData == true) {
@@ -124,72 +123,76 @@ export class RegisterComponent implements OnInit {
         }
         dataUser.append('user', JSON.stringify(this.data));
         await this._register.registerUser(dataUser).subscribe(res => {
-          console.log(res)
-          console.log(res['message']['summary']);
           this.title = 'Verificar cuenta'
           this.titleButton = 'Verificar'
         })
       } catch (error) { console.log(error) }
-    } else if(this.title === 'Verificar cuenta'){
+    } else if (this.title === 'Verificar cuenta') {
+      if (this.dataVerify.email === '' ||
+        this.dataVerify.codeForVerfication === '') {
+        return this.toastr.warning('Campos incompletos');
+      }
       try {
         await this._verify.verifyAccount(this.dataVerify).subscribe((res: {
-          message: string
+          error?: { message: string }, data: { id: string }
         }) => {
-          if (res.message === 'error in code verification') {
-            return this.toastr.success('Código incorrecto', '');
+          if (res.error?.message === 'Account not found') {
+            return this.toastr.warning('No registrado', 'Correo electrónico');
+          } else if (res.error?.message === 'error in code verification') {
+            return this.toastr.info('Código no válido', '');
           }
-          this.toastr.success('Cuenta verificada', '');
-          this.router.navigateByUrl('/moduleProviders/login');
+          return this.toastr.success('Cuenta verificada', '');
+          // this.router.navigateByUrl('/moduleProviders/login');
         })
-      } catch (error) { console.log(error) }
-    }
+    } catch (error) { console.log(error) }
   }
+}
 
-  //file pdf
-  captureFile(event): void {
-    this.data.filePdf = event.target.files[0];
-    if (this.captureFiles == null) {
-      this.captureFiles = event.target.files[0];
-      this.extractBase64(this.captureFiles).then((repository: any) => {
-        this.preview = repository.base;
-        //console.log(repository);
-      })
-      if ('application/pdf' === this.captureFiles.type) {
-        this.data.filePdf = this.captureFiles;
-        this.captureFiles = this.data.filePdf
-        console.log(this.data.filePdf)
-      } else {
-        console.log('No es un pdf')
-      }
-    }
-
-  }
-  extractBase64 = async ($event: any) => new Promise((resolve) => {
-    try {
-      const unsafeFile = window.URL.createObjectURL($event);
-      const image = this._sanitizer.bypassSecurityTrustUrl(unsafeFile);
-      const reader = new FileReader();
-      reader.readAsDataURL($event);
-      reader.onload = () => {
-        resolve({
-          base: reader.result
-        });
-      };
-      reader.onerror = error => {
-        resolve({
-          base: null
-        });
-      };
-
-    } catch (e) {
-      return null;
-    }
+//file pdf
+captureFile(event): void {
+  this.data.filePdf = event.target.files[0];
+  if(this.captureFiles == null) {
+  this.captureFiles = event.target.files[0];
+  this.extractBase64(this.captureFiles).then((repository: any) => {
+    this.preview = repository.base;
+    //console.log(repository);
   })
+  if ('application/pdf' === this.captureFiles.type) {
+    this.data.filePdf = this.captureFiles;
+    this.captureFiles = this.data.filePdf
+    console.log(this.data.filePdf)
+  } else {
+    console.log('No es un pdf')
+  }
+}
 
-  ngOnInit(): void {
-    this.getAllRoles()
+  }
+extractBase64 = async ($event: any) => new Promise((resolve) => {
+  try {
+    const unsafeFile = window.URL.createObjectURL($event);
+    const image = this._sanitizer.bypassSecurityTrustUrl(unsafeFile);
+    const reader = new FileReader();
+    reader.readAsDataURL($event);
+    reader.onload = () => {
+      resolve({
+        base: reader.result
+      });
+    };
+    reader.onerror = error => {
+      resolve({
+        base: null
+      });
+    };
+
+  } catch (e) {
+    return null;
+  }
+})
+
+ngOnInit(): void {
+  this.getAllRoles()
     this.getAllTypesIdentifications()
     this.getProvinces()
-  }
+}
 
 }
