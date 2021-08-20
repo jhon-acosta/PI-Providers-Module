@@ -68,7 +68,7 @@
         <div class="owl-carousel testimonials-carousel">
             <div class="testimonial-item">
                 <div class="testimonial-img">
-                    <img class="imgLogo" src="http://1000marcas.net/wp-content/uploads/2020/03/Alibaba-Logo-1.png" alt="Image">
+                    <img class="imgLogo" src="https://firebasestorage.googleapis.com/v0/b/full-stack-courses.appspot.com/o/Redes%2FWhatsApp%20Image%202021-08-17%20at%2010.41.35%20AM.jpeg?alt=media&token=27628499-1439-471d-8d1a-e8413de46d9a" alt="Image">
                 </div>
             </div>
             <div class="testimonial-item">
