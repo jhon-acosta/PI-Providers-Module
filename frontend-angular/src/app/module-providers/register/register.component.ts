@@ -52,6 +52,9 @@ export class RegisterComponent implements OnInit {
   public captureFiles: any;
   public hiddenRuc: boolean = false;
   public hiddenData: boolean = false;
+  public roleDescription: string;
+  public numbersLastRuc:string;
+  public checkboxPrivacy:any;
 
   constructor(
     private _roles: RolesService,
@@ -68,6 +71,7 @@ export class RegisterComponent implements OnInit {
     this._roles.getAllRoles().subscribe(response => {
       try {
         this.roles = response.data.filter(x => x.description !== 'Administrador')
+         this.roleDescription = response.data.filter(element => element.description == 'Proveedor');
       } catch (error) { return error }
     })
   }
@@ -76,6 +80,7 @@ export class RegisterComponent implements OnInit {
     this._typesIdentifications.getAllTypesIdentifications().subscribe(response => {
       try {
         this.typesIdentifications = response.data
+        
       } catch (error) {
         console.log(error)
       }
@@ -122,10 +127,79 @@ export class RegisterComponent implements OnInit {
           dataUser.append('user', JSON.stringify(dataGoogle));
         }
         dataUser.append('user', JSON.stringify(this.data));
-        await this._register.registerUser(dataUser).subscribe(res => {
+
+        if(this.data.province == ''){
+          return this.toastr.error('No registrado', 'Ingrese la provincia');
+        }
+         if (this.data.roleId == 0 ) {
+          return this.toastr.error('No registrado', 'Ingrese su rol');
+        }
+
+        if (this.data.typeId == 0) {
+          return this.toastr.error('No registrado', 'Ingrese el tipo de identificación');
+        } else{
+          if (this.data.numberIdentification == ''){
+            return this.toastr.error('No registrado', 'Ingrese el número de identificación');
+          } else{
+            this.numbersLastRuc= this.data.numberIdentification.substr(-3)
+            for (let index = 0; index < this.typesIdentifications.length; index++) {
+              const element = this.typesIdentifications[index];
+              if(this.data.typeId == element.id && element.description === 'RUC'){
+                if( this.numbersLastRuc !== '001'){
+                  return this.toastr.warning('N° inválido de Ruc', 'Verifique el número de dígitos el campo de identificación');
+                }
+                if(this.roleDescription[0]['id'] != this.data.roleId){
+                  return this.toastr.warning('Error de rol', 'El rol comprador no puede ingresar RUC');
+                }
+              }
+              if(this.data.typeId == element.id && element.description === 'Canét de conadis'){
+                if(this.data.numberIdentification.length < 10 || this.data.numberIdentification.length > 10) 
+                return this.toastr.warning('N° inválido del Carnét de conadis', 'Verifique el número de dígitos el campo de identificación');
+              }
+              if(this.data.typeId == element.id && element.description === 'Cédula de identidad' ){
+                if(this.data.numberIdentification.length < 10 || this.data.numberIdentification.length > 10) 
+                return this.toastr.warning('N° inválido de la Cédula de identidad', 'Verifique el número de dígitos el campo de identificación');
+              }
+            }
+          }
+         
+        }
+       
+        if (this.data.names == ''){
+          return this.toastr.error('No registrado', 'Ingrese su nombre');
+        } 
+        if (this.data.surnames == ''){
+          return this.toastr.error('No registrado', 'Ingrese su apellido');
+        } 
+        if (this.data.cellPhone == ''){
+          return this.toastr.error('No registrado', 'Verifique el número de teléfono');
+        } else {
+          if(this.data.cellPhone.length < 10 || this.data.cellPhone.length > 10){
+            return this.toastr.warning('N° de ingresado incorrecto', 'Verifique el número de teléfono');
+          }
+        }
+        if(this.roleDescription[0]['id'] == this.data.roleId && this.data.filePdf == ''){
+          return this.toastr.error('No registrado', 'Ingrese el certificado de Ruc');
+        } 
+        if(this.hiddenData == false && this.data.email == '' || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.exec(this.data.email)){
+          return this.toastr.error('No registrado', 'Verifique el correo electrónico');
+        } 
+        if(this.data.password == ''){
+          return this.toastr.error('No registrado', 'Ingrese una contraseña');
+        } 
+        if(this.confirmPassword == '' || this.confirmPassword != this.data.password){
+          return this.toastr.error('No registrado', 'Verifique la confirmación de la contraseña');
+        }
+
+        if(this.checkboxPrivacy == true){
+          await this._register.registerUser(dataUser).subscribe(res => {
           this.title = 'Verificar cuenta'
           this.titleButton = 'Verificar'
         })
+        }else{
+          return this.toastr.error('Politicas de privacidad', 'Acepte los términos y condiciones');
+        }    
+        
       } catch (error) { console.log(error) }
     } else if (this.title === 'Verificar cuenta') {
       if (this.dataVerify.email === '' ||
@@ -148,6 +222,12 @@ export class RegisterComponent implements OnInit {
   }
 }
 
+handleInputChange(event):void {
+  const target = event.target.checked;
+  this.checkboxPrivacy=target;
+  console.log(target);
+}
+
 //file pdf
 captureFile(event): void {
   this.data.filePdf = event.target.files[0];
@@ -155,14 +235,12 @@ captureFile(event): void {
   this.captureFiles = event.target.files[0];
   this.extractBase64(this.captureFiles).then((repository: any) => {
     this.preview = repository.base;
-    //console.log(repository);
   })
   if ('application/pdf' === this.captureFiles.type) {
     this.data.filePdf = this.captureFiles;
     this.captureFiles = this.data.filePdf
-    console.log(this.data.filePdf)
   } else {
-    console.log('No es un pdf')
+   this.toastr.warning('Error de archivo', 'El archivo ingresado no es un PDF');
   }
 }
 

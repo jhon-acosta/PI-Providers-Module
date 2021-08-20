@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import {ActivatedRoute} from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import {UserService} from '../services/user.service';
@@ -26,7 +27,7 @@ export class EditProviderComponent implements OnInit {
   constructor( private _route:ActivatedRoute, 
     private _api:UserService, 
     private _sanitizer:DomSanitizer, 
-
+    private toastr: ToastrService,
     ) { }
 
   ngOnInit(): void {
@@ -63,7 +64,14 @@ export class EditProviderComponent implements OnInit {
     dataUser.append('fileImg', this.users.markImage);
     dataUser.append('user', JSON.stringify(this.users));
     this._api.updateUser(this.id, dataUser).subscribe(res=>{
-      console.log(res);
+      this.toastr.success('Se ha actualizado los cambios', 'Datos actualizados', {
+        positionClass: 'toast-top-right'
+      })
+    },
+     err => {
+       this.toastr.warning('Intentalo más tarde', 'Error', {
+        positionClass: 'toast-bottom-left'
+  })
     })
   }
 
