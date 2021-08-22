@@ -16,6 +16,13 @@
         </div>
         <div class="card-content">
             <h2>{{user}}</h2>
+            <span *ngIf="scoreValue === 0"> Sin calificaciones</span> 
+            <span *ngIf="scoreValue !== 0"> {{ scoreValue }}/5  </span>
+            <div class="available_line d-flex flex-row justify-content-center">
+                <div class="sold_stars ml-auto">
+                    <i class="fa fa-star" *ngFor="let start of arrScore"></i>
+                </div>
+            </div>
             <p>{{userEmail}}</p>
             <p class="card-text">Bienvenido, ahora eres parte del equipo de
                 proveedores de
@@ -27,6 +34,7 @@
             </p>
             <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i
                         class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+
         </div>
 
     </div>

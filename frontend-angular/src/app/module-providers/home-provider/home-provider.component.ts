@@ -15,11 +15,20 @@ export class HomeProviderComponent implements OnInit {
   public avatar:any;
   public userEmail:string;
   public userPhone:string;
+  public arrScore: string[]
+  public scoreValue: number
   constructor( private _user:UserService, private router: Router, ) { }
 
   async currentUser () {
     await this._user.getCurrentUser().subscribe((response:{
-     data: { names: string, surnames: string, email:string, cellPhone:string, markImage:string}
+     data: { 
+       names: string,
+       surnames: string,
+       email:string,
+       cellPhone:string,
+       markImage:string
+       score:string
+    }
     } ) => {
       this.provider=response.data;
       this.userEmail=`${response.data.email}`
@@ -30,7 +39,11 @@ export class HomeProviderComponent implements OnInit {
       }else{
         this.avatar=`http://127.0.0.1:8000/storage/${this.provider.markImage}`;
       }
-      
+      this.scoreValue = parseInt(response.data.score)
+      let score = parseInt(response.data.score)
+      const scores = []
+      for (let i = 0; i < score; i++) { scores.push('start') }
+      this.arrScore = scores
       console.log(this.provider)
     }, error =>{ console.log(error)})
   }
