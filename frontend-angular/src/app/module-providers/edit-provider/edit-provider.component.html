@@ -1,11 +1,7 @@
 <h1 class="text-center"
   style="margin-top: 20px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">
   Información del usuario</h1>
-  
 <div class="container">
-  <div class="text-center">
-    <button class="btn btn-danger mt-4 ml-2" routerLink="/moduleProviders/profile-user">Regresar</button>
-  </div>
   <div class="abs-center mt-4">
     <form (ngSubmit)="updateUser()" class="bg-secondary pt-4 pb-4 border px-4 py-4 form mb-4" style="border-radius: 5px;">
       <div *ngIf="preview; else Block" >
@@ -51,5 +47,4 @@
       </div>
     </form>
   </div>
-  
 </div>

@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Interceptors
 import { AuthService } from './services/auth.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     CommonModule,
     AngularFireAuthModule,
+    SharedModule,
     ModuleProvidersRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,

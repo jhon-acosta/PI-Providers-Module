@@ -10,20 +10,34 @@ import { Router } from '@angular/router';
 export class HomeProviderComponent implements OnInit {
 
   user: string
+  provider:any;
+  public urlAvatar:string='https://img.icons8.com/ultraviolet/80/000000/user.png';
+  public avatar:any;
+  public userEmail:string;
+  public userPhone:string;
   constructor( private _user:UserService, private router: Router, ) { }
 
   async currentUser () {
     await this._user.getCurrentUser().subscribe((response:{
-     data: { names: string, surnames: string}
+     data: { names: string, surnames: string, email:string, cellPhone:string, markImage:string}
     } ) => {
+      this.provider=response.data;
+      this.userEmail=`${response.data.email}`
+      this.userPhone=`${response.data.cellPhone}`
       this.user = `${response.data.names} ${response.data.surnames}`
-      console.log(response)
+      if(this.provider.markImage === this.urlAvatar ){
+        this.avatar=this.provider.markImage;
+      }else{
+        this.avatar=`http://127.0.0.1:8000/storage/${this.provider.markImage}`;
+      }
+      
+      console.log(this.provider)
     }, error =>{ console.log(error)})
   }
 
   async sessionClose () {
     await this._user.getCurrentUser().subscribe((response) => {
-       console.log(response)
+       //console.log(response)
        localStorage.removeItem('tokenEcuShopping')
        this.router.navigate(['/moduleProviders/login']);
      }, error =>{ console.log(error)})

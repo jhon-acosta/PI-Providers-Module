@@ -63,8 +63,11 @@ export class LoginComponent implements OnInit {
         // ruta de compador a se añadida
         // this.router.navigate(['/moduleProviders/provider/home']);
         alert('se redirecciona a HOME de COMPRADOR')
-      } else if (response.data.role === 'Proveedor') {
-        this.router.navigate(['/moduleProviders/provider/home']);
+      } else if (response.data.role === 'Proveedor') { 
+        this.router.navigate(['/moduleProviders/provider/home'])
+            .then(() => {
+              window.location.reload();
+            });   
       }
     }, error => {
       return this.toastr.warning('Correo electrónico inválido', 'Ops!');

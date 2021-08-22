@@ -1,1 +1,19 @@
-<router-outlet></router-outlet>
+
+<div *ngIf="EcuaToken == '' || EcuaToken == null; else Block">
+    <app-nav-bar></app-nav-bar>
+    <router-outlet></router-outlet>
+</div>
+<ng-template #Block>
+    <app-nav-bar></app-nav-bar>
+    <div class="row">
+        <div class="col-3">
+           <app-side-bar></app-side-bar>
+        </div>
+        <div class="col">
+            <router-outlet></router-outlet>
+        </div>
+        </div>
+</ng-template>
+
+
+ 

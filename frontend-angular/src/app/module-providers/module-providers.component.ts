@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 
 export class ModuleProvidersComponent {
   title = 'Modulo de proveedores';
+  EcuaToken=localStorage.getItem('tokenEcuShopping');
 }

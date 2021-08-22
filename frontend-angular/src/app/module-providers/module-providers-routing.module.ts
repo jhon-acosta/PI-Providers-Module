@@ -9,7 +9,7 @@ import { RememberPasswordComponent } from './remember-password/remember-password
 
 const routes: Routes = [
   { path: 'moduleProviders/provider/home', component: HomeProviderComponent },
-  { path: 'moduleProviders/register', component: RegisterComponent },
+  { path: 'moduleProviders/register', component: RegisterComponent},
   { path: 'moduleProviders/login', component: LoginComponent },
   { path: 'moduleProviders/rememberPassword', component: RememberPasswordComponent },
   { path: 'moduleProviders/profile-user', component: ProfileProviderComponent },
