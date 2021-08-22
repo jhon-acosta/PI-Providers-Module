@@ -96,4 +96,32 @@ class UserController extends Controller
             ], 200);
         }
     }
+
+    public function qualityProvider (Request $request)
+    {
+        $user = DB::table('users')->where('id', $request->id)->first();
+        if (!is_null($user) && DB::table('roles')
+        ->where('id', $user->roleId)->value('description') === 'Proveedor') 
+        {
+            if ($user->score == 0) 
+            {
+                DB::table('users')->where('id', $user->id)
+                ->update(['score' => $request->score]);
+                return response()->json([
+                    'data' => [
+                        'message' => 'first saved grade'
+                        ]
+                    ], 200);
+            } else {
+                $newQuality = ($user->score + $request->score)/2;
+                DB::table('users')->where('id', $user->id)->update(['score' => $newQuality]);
+                return response()->json([
+                    'data' => [
+                        'message' => 'qualified supplier'
+                    ]
+                ], 200);
+            }
+        }
+        
+    }
 }

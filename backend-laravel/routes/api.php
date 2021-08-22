@@ -42,6 +42,8 @@ Route::post('/users', [UserController::class, 'store']);
 Route::get('/users/{id}', [UserController::class, 'edit']);
 Route::post('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+Route::put('/users/qualityProvider', [UserController::class, 'qualityProvider']);
+
 
 //type Identifications
 Route::get('/typeIdentificacions', [TypeIdentificacionController::class, 'index']);

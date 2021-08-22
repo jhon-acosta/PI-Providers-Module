@@ -29,6 +29,7 @@ class RegisterController extends Controller
 
             $img ='https://img.icons8.com/ultraviolet/80/000000/user.png';
             $user->markImage = $img;
+            $user->score = '0';
         }
        
         $img ='https://img.icons8.com/ultraviolet/80/000000/user.png';

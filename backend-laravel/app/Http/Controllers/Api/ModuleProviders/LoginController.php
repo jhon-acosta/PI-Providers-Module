@@ -78,6 +78,7 @@ class LoginController extends Controller
                     'province' => $current->province,
                     'markImage' => $current->markImage,
                     'filePdf' => $current->filePdf,
+                    'score' => $current->score,
                 ]
             ], 200);
         } else {
