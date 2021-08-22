@@ -1,4 +1,7 @@
 /* start */
+.ecu-background {
+    background-color: #FF5722;
+}
 
 #sidebar {
     min-width: 250px;

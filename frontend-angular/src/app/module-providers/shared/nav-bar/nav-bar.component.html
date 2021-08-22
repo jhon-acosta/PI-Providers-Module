@@ -1,7 +1,7 @@
-  <!-- Page Content  -->
-        <div *ngIf="user == null || user == ''; else Block">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation"
-        data-sidebarClass="navbar-dark bg-dark">
+<!-- Page Content  -->
+<div *ngIf="user == null || user == ''; else Block">
+    <nav class="navbar navbar-expand-md navbar-dark ecu-background sidebarNavigation"
+        data-sidebarClass="navbar-dark ecu-background ">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">EcuShopping</a>
             <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse"
@@ -15,43 +15,40 @@
                         <a class="nav-link" [routerLink]="['/moduleProviders/register']">Registrarse</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/moduleProviders/login']">Login</a>
+                        <a class="nav-link" [routerLink]="['/moduleProviders/login']">Iniciar Sesión</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-     </div>
-     <ng-template #Block>
-       
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation"
-    data-sidebarClass="navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">{{ email }}</a>
-        <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse"
-            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-            <ul class="nav navbar-nav nav-flex-icons ml-auto" style="margin-right:20px">
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/moduleProviders/provider/home']">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mr-4" [routerLink]="['/moduleProviders/profile-user']">Perfil</a>
-                </li>
-                <li class="nav-item active">
-                    <button
-                        type="button"
-                        class="btn btn-outline-secondary"
-                        (click)="sessionClose()"
-                    >
-                    Cerrar Sesión
-                </button>
-                </li>
-            </ul>
+</div>
+<ng-template #Block>
+
+    <nav class="navbar navbar-expand-md navbar-dark ecu-background  sidebarNavigation"
+        data-sidebarClass="navbar-dark ecu-background ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">{{ email }}</a>
+            <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse"
+                data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="nav navbar-nav nav-flex-icons ml-auto" style="margin-right:20px">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/moduleProviders/provider/home']">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mr-4" [routerLink]="['/moduleProviders/profile-user']">Perfil</a>
+                    </li>
+                    <li class="nav-item active">
+                        <button type="button" class="btn" style="color: wheat; background-color: #0d6efd;"
+                            (click)="sessionClose()">
+                            Cerrar Sesión
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-     </ng-template>
+    </nav>
+</ng-template>
