@@ -18,10 +18,9 @@
         <label for="model">Apellido</label>
         <input type="text" name="model" class="form-control" [(ngModel)]="users.surnames">
       </div>
-  
       <div class="form-group" style="color: white;margin-top: 5px;">
         <label for="name">Teléfono</label>
-        <input type="text" name="name" class="form-control" [(ngModel)]="users.cellPhone">
+        <input type="text" name="phone" class="form-control" [(ngModel)]="users.cellPhone">
       </div>
       <div class="form-group" style="color: white;margin-top: 5px;">
         <label for="marca">Provincia</label>
@@ -32,14 +31,49 @@
           </option>
         </select>
       </div>
+      <div class="form-group"  style="color: white;margin-top: 5px;">
+        <label for="name">Nombre del Banco</label>
+        <select
+        [(ngModel)]="users.bankName"
+        name="bankName"
+        class="form-control" id="floatingInput"
+      >
+        <option selected>Seleccionar...</option>
+        <option
+          *ngFor="let bank of banksEC"
+          [value]="bank.bankName"
+        >
+          {{ bank.bankName }}
+        </option>
+      </select>
+      </div>
+      <div class="form-group"  style="color: white;margin-top: 5px;">
+        <label for="name">Tipo de Banco</label>
+        <select
+        [(ngModel)]="users.typeAccount"
+        name="typeAccount"
+        class="form-control" id="floatingInput"
+      >
+        <option
+          *ngFor="let account of typeAccount"
+          [value]="account"
+        >
+          {{ account }}
+        </option>
+      </select>
+      </div>
+      <div class="form-group"  style="color: white;margin-top: 5px;">
+        <label for="name">N° de cuenta bancaria</label>
+        <input type="text" name="name" class="form-control" [(ngModel)]="users.bankAccount">
+      </div>
       <div class="form-group" style="color: white;margin-top: 5px;">
         <label for="image">Logo</label>
-        <input type="file" (change)="captureImg($event)" name="markImage" class="form-control" [(ngModel)]="captureImages"
+        <input type="file" (change)="captureImg($event)" name="markImage" class="form-control"
           accept=".png, .jpg, .jpeg">
       </div>
       <div class="form-group" [hidden]="hiddenRuc" style="color: white;margin-top: 5px;">
         <label for="pdf">Archivo PDF</label>
-        <input type="file" (change)="captureFile($event)" name="filePdf" class="form-control" [(ngModel)]="captureFiles"
+        <input type="file" (change)="captureFile($event)" name="filePdf" class="form-control"
           accept=".pdf">
       </div>
       <div class="form-group" style="text-align: center;">

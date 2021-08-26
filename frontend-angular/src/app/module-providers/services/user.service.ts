@@ -31,5 +31,5 @@ export class UserService {
     return this.http.post(`${this.endpoint}/users/${id}`,data);
   }
 
-  logou
+
 }

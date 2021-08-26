@@ -5,4 +5,7 @@ export class User {
   markImage?: any;
   filePdf?: any;
   province: string;
+  bankAccount:string;
+  typeAccount:string;
+  bankName:string;
 }

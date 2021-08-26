@@ -38,6 +38,8 @@ class CreateUsersTable extends Migration
             $table->boolean('statusEmailVerified')->nullable();
             $table->string('province', 50)->nullable();
             $table->string('score', 50)->nullable();
+            $table->string('bankName', 50)->nullable();
+            $table->string('typeAccount', 50)->nullable();
             $table->string('bankAccount', 50)->nullable();
             /**
              * Relationship

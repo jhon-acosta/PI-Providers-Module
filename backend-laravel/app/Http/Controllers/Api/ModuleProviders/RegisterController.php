@@ -24,7 +24,7 @@ class RegisterController extends Controller
         $user = new User();
         if (DB::table('roles')->where('id', $dataUser['roleId'])->value('description') === 'Proveedor'){
             $file=$request->file('file');
-            $pdf=$file->storeAs('provider_pdf', $file->getClientOriginalName(),'public');
+            $pdf=$file->storeAs('provider_pdf', time() . $file->getClientOriginalName(),'public');
             $user->filePdf = $pdf;
 
             $img ='https://img.icons8.com/ultraviolet/80/000000/user.png';

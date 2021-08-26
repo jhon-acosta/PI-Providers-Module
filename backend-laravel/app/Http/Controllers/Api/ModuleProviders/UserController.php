@@ -62,24 +62,23 @@ class UserController extends Controller
         if($user-> filePdf != $dataUser['filePdf']){
             Storage::disk('public')->delete($user -> filePdf); 
             $file = $request->file('filePdf');
-            $pdf = $file->StoreAs('provider_pdf', $file->getClientOriginalName(), 'public');
+            $pdf = $file->StoreAs('provider_pdf',time() .  $file->getClientOriginalName(), 'public');
             $user->filePdf=$pdf;
         }
         
         if($user-> markImage != $dataUser['markImage']){
             Storage::disk('public')->delete($user -> markImage); 
             $file = $request->file('fileImg');
-            $img = $file-> storeAs('provider_img', $file->getClientOriginalName(), 'public');
+            $img = $file-> storeAs('provider_img', time() . $file->getClientOriginalName(), 'public');
             $user->markImage = $img;
         }
         $user->names = $dataUser['names'];
         $user->surnames = $dataUser['surnames'];
-        // $user->password = $dataUser['password'];
         $user->cellPhone = $dataUser['cellPhone'];
-        // $user->codeForVerfication = $dataUser['codeForVerfication'];
-        // $user->statusEmailVerified = $dataUser['statusEmailVerified'];
         $user->province = $dataUser['province'];
- 
+        $user->bankName = $dataUser['bankName'];
+        $user->typeAccount = $dataUser['typeAccount'];
+        $user->bankAccount = $dataUser['bankAccount'];
         if($user->save()){
             return new UserResource($user);
         }

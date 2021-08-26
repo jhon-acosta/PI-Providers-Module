@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {UserService} from '../services/user.service';
 import { User } from '../interfaces/User';
 import provinces  from '../utils/provinces.json';
+import bankName from '../utils/banksEC.json';
 
 @Component({
   selector: 'app-edit-provider',
@@ -20,10 +21,11 @@ export class EditProviderComponent implements OnInit {
   public avatar:any;
   public urlAvatar:string='https://img.icons8.com/ultraviolet/80/000000/user.png';
    provincesEc: Array<{ provincia: string }>
+   banksEC:Array<{ bankName: string }>
+   typeAccount:Array<string>=['Ahorros','Corriente'];
   public captureFiles:any;
   public captureImages:any;
   public hiddenRuc:boolean=false;
-
   constructor( private _route:ActivatedRoute, 
     private _api:UserService, 
     private _sanitizer:DomSanitizer, 
@@ -34,6 +36,7 @@ export class EditProviderComponent implements OnInit {
     this.id=this._route.snapshot.params.id;
     this.getDataUser();
     this.getProvinces();
+    this.getBanks();
   }
 
 
@@ -41,8 +44,11 @@ export class EditProviderComponent implements OnInit {
     this.provincesEc = provinces
   }
 
+  getBanks(){
+    this.banksEC=bankName
+  }
+
   getDataUser(){
-      
     this._api.getUserById(this.id).subscribe(res=>{
       this.users=res['data'];
       if(res['data']['filePdf'] == null){
@@ -58,12 +64,25 @@ export class EditProviderComponent implements OnInit {
     })
   }
 
+
   updateUser(){
     const dataUser = new FormData();
     dataUser.append('filePdf', this.users.filePdf);
     dataUser.append('fileImg', this.users.markImage);
     dataUser.append('user', JSON.stringify(this.users));
+      if (this.users.bankName == '' || this.users.bankName == null) {
+        return this.toastr.error('No registrado', 'Ingrese un Banco');
+      }
+      if (this.users.typeAccount == '' || this.users.typeAccount == null) {
+        return this.toastr.error('No registrado', 'Ingrese el tipo de cuenta');
+      }
+      if (this.users.bankAccount == '' || this.users.bankAccount== null || this.users.bankAccount.length < 10) {
+        return this.toastr.error('No registrado', 'Verifique el número de cuenta bancaria');
+        
+      }
+    
     this._api.updateUser(this.id, dataUser).subscribe(res=>{
+      console.log(res['data'])
       this.toastr.success('Se ha actualizado los cambios', 'Datos actualizados', {
         positionClass: 'toast-top-right'
       })
@@ -78,19 +97,20 @@ export class EditProviderComponent implements OnInit {
   //file pdf
   captureFile(event): void{
     this.users.filePdf=event.target.files[0];
-    if(this.captureFiles == null){
-    this.captureFiles = event.target.files[0];
-    this.extractBase64(this.captureFiles).then((repository:any) =>{
-      console.log(repository);
-    })
-    if('application/pdf'=== this.captureFiles.type){
-      this.users.filePdf=this.captureFiles;
-    }else{
-      console.log('No es un pdf')
+    if (this.captureFiles == null) {
+      this.captureFiles = event.target.files[0];
+      this.extractBase64(this.captureFiles).then((repository: any) => {
+        this.preview = repository.base;
+      })
+      if ('application/pdf' === this.captureFiles.type) {
+        this.users.filePdf = this.captureFiles;
+        this.captureFiles = this.users.filePdf
+      } else {
+        this.toastr.warning('Error de archivo', 'El archivo ingresado no es un PDF');
+      }
     }
-    }
-    
   }
+
   //file image
   captureImg(event): void{
     this.users.markImage=event.target.files[0];
@@ -98,7 +118,9 @@ export class EditProviderComponent implements OnInit {
       this.captureImages = event.target.files[0];
     if('image/jpeg'=== this.captureImages.type || 'image/jpg' === this.captureImages.type || 'image/png' === this.captureImages.type){
       this.users.markImage=this.captureImages;
+      this.captureImages=this.users.markImage;
     }else{
+      this.toastr.warning('No registrado', 'El archivo no tiene un formato de imagen');
       console.log('No es un formato de imagen')
     }
     }
