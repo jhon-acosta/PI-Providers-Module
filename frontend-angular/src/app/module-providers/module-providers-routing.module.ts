@@ -13,31 +13,31 @@ import { ProviderGuard } from './guards/provider.guard';
 const routes: Routes = [
   {
     path: 'moduleProviders/provider/home',
-    canActivate:[LoginGuard],
+    // canActivate:[LoginGuard],
     component: HomeProviderComponent 
   },
   {
     path: 'moduleProviders/register',
-    canActivate:[ProviderGuard],
+    // canActivate:[ProviderGuard],
     component: RegisterComponent
   },
   { 
     path: 'moduleProviders/login',
-    canActivate:[ProviderGuard],
+    // canActivate:[ProviderGuard],
     component: LoginComponent
   },
   { 
     path: 'moduleProviders/rememberPassword',
-    canActivate:[ProviderGuard],
+    // canActivate:[ProviderGuard],
     component: RememberPasswordComponent 
   },
   { path: 'moduleProviders/profile-user',
-    canActivate:[LoginGuard],
+    // canActivate:[LoginGuard],
     component: ProfileProviderComponent 
   },
   {
     path: 'moduleProviders/profile-user/edit/:id',
-    canActivate:[LoginGuard],
+    // canActivate:[LoginGuard],
     component:EditProviderComponent
   }
 ];
