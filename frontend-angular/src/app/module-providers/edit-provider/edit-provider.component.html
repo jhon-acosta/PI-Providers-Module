@@ -1,28 +1,30 @@
 <h1 class="text-center"
-  style="margin-top: 20px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">
+  style="margin-top: 10px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">
   Información del usuario</h1>
 <div class="container">
   <div class="abs-center">
-    <form (ngSubmit)="updateUser()" class="bg-secondary pt-4 pb-4 border px-4 py-4 form mb-4" style="border-radius: 5px;">
-      <div *ngIf="preview; else Block" >
+    <form (ngSubmit)="updateUser()" class="bg-secondary pb-4 border px-4 py-4 form" style="border-radius: 5px;">
+      <div class="row">
+      <div *ngIf="preview; else Block" class="col-md-4">
         <img src="{{ preview }}" alt="">
       </div>
-      <ng-template #Block style="text-align:center">
+      <ng-template #Block  class="col-md-4">
         <img src='{{avatar}}' alt="">
       </ng-template>
-      <div class="form-group" style="color: white; margin-top: 5px;">
+    
+      <div class="form-group col-md-4" style="color: white; margin-top: 5px;">
         <label for="placa">Nombre</label>
         <input type="text" name="placa" class="form-control" [(ngModel)]="users.names">
       </div>
-      <div class="form-group" style="color: white;margin-top: 5px;">
+      <div class="form-group col-md-4" style="color: white;margin-top: 5px;">
         <label for="model">Apellido</label>
         <input type="text" name="model" class="form-control" [(ngModel)]="users.surnames">
       </div>
-      <div class="form-group" style="color: white;margin-top: 5px;">
+      <div class="form-group col-md-4" style="color: white;margin-top: 5px;">
         <label for="name">Teléfono</label>
         <input type="text" name="phone" class="form-control" [(ngModel)]="users.cellPhone">
       </div>
-      <div class="form-group" style="color: white;margin-top: 5px;">
+      <div class="form-group col-md-4" style="color: white;margin-top: 5px;">
         <label for="marca">Provincia</label>
         <select [(ngModel)]="users.province" name="province" class="form-control">
           <option selected>Seleccionar...</option>
@@ -31,7 +33,7 @@
           </option>
         </select>
       </div>
-      <div class="form-group"  style="color: white;margin-top: 5px;">
+      <div class="form-group col-md-4"  style="color: white;margin-top: 5px;">
         <label for="name">Nombre del Banco</label>
         <select
         [(ngModel)]="users.bankName"
@@ -47,7 +49,7 @@
         </option>
       </select>
       </div>
-      <div class="form-group"  style="color: white;margin-top: 5px;">
+      <div class="form-group col-md-6"  style="color: white;margin-top: 5px;">
         <label for="name">Tipo de Banco</label>
         <select
         [(ngModel)]="users.typeAccount"
@@ -62,10 +64,11 @@
         </option>
       </select>
       </div>
-      <div class="form-group"  style="color: white;margin-top: 5px;">
+      <div class="form-group col-md-6"  style="color: white;margin-top: 5px;">
         <label for="name">N° de cuenta bancaria</label>
         <input type="text" name="name" class="form-control" [(ngModel)]="users.bankAccount">
       </div>
+    </div>
       <div class="form-group" style="color: white;margin-top: 5px;">
         <label for="image">Logo</label>
         <input type="file" (change)="captureImg($event)" name="markImage" class="form-control"
