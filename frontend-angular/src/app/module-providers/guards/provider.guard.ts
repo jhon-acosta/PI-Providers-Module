@@ -13,6 +13,7 @@ export class ProviderGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const token: string = localStorage.getItem('tokenEcuShopping');
       if (token) {
+        this.router.navigate(['/moduleProviders/provider/home']);
         return false;
       } else {
         return true;
