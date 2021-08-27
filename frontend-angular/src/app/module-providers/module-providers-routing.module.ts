@@ -7,13 +7,39 @@ import { ProfileProviderComponent } from './profile-provider/profile-provider.co
 import { RegisterComponent } from './register/register.component';
 import { RememberPasswordComponent } from './remember-password/remember-password.component';
 
+import { LoginGuard } from './guards/login.guard';
+import { ProviderGuard } from './guards/provider.guard';
+
 const routes: Routes = [
-  { path: 'moduleProviders/provider/home', component: HomeProviderComponent },
-  { path: 'moduleProviders/register', component: RegisterComponent},
-  { path: 'moduleProviders/login', component: LoginComponent },
-  { path: 'moduleProviders/rememberPassword', component: RememberPasswordComponent },
-  { path: 'moduleProviders/profile-user', component: ProfileProviderComponent },
-  { path: 'moduleProviders/profile-user/edit/:id', component:EditProviderComponent}
+  {
+    path: 'moduleProviders/provider/home',
+    canActivate:[LoginGuard],
+    component: HomeProviderComponent 
+  },
+  {
+    path: 'moduleProviders/register',
+    canActivate:[ProviderGuard],
+    component: RegisterComponent
+  },
+  { 
+    path: 'moduleProviders/login',
+    canActivate:[ProviderGuard],
+    component: LoginComponent
+  },
+  { 
+    path: 'moduleProviders/rememberPassword',
+    canActivate:[ProviderGuard],
+    component: RememberPasswordComponent 
+  },
+  { path: 'moduleProviders/profile-user',
+    canActivate:[LoginGuard],
+    component: ProfileProviderComponent 
+  },
+  {
+    path: 'moduleProviders/profile-user/edit/:id',
+    canActivate:[LoginGuard],
+    component:EditProviderComponent
+  }
 ];
 
 @NgModule({

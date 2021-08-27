@@ -64,7 +64,7 @@
 #sidebar ul li a {
     padding: 15px 30px;
     display: block;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.968);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -182,7 +182,7 @@ a[data-toggle="collapse"] {
 }
 
 .footer p {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 .form-control {
@@ -203,22 +203,22 @@ a[data-toggle="collapse"] {
 
 .form-control::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 .form-control::-moz-placeholder {
     /* Firefox 19+ */
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 .form-control:-ms-input-placeholder {
     /* IE 10+ */
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 .form-control:-moz-placeholder {
     /* Firefox 18- */
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 .subscribe-form .form-control {
