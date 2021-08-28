@@ -1,0 +1,200 @@
+  <div class="container-fluid ps-md-0">
+    <div class="row g-0">
+      <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+      <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9 col-lg-8 mx-auto">
+                <div style="text-align: center">
+                  <img src="../../../assets/img/icono-EcuaShopping.png" width="80px" height="90px" class="mb-4 center">
+                  
+                  <h3 class="login-heading mb-4" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:xx-large;">{{ title }}</h3>
+                </div>
+                
+                <!-- Sign In Form -->
+                <form *ngIf="title === 'Registro en EcuShopping'">
+                  <div class="form-group mt-4 mb-4">
+                    <button (click)="registerWithGoogle()" class="btn btn-lg btn-google">
+                      <i class="fa fa-google"></i>oogle
+                    </button>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                    [(ngModel)]="data.province"
+                    name="province"
+                    class="form-control" id="floatingInput"
+                  >
+                    <option selected>Seleccionar...</option>
+                    <option
+                      *ngFor="let province of provincesEc"
+                      [value]="province.provincia"
+                    >
+                      {{ province.provincia }}
+                    </option>
+                  </select>
+                    <label for="floatingInput">Provincia</label>
+                  </div>
+                  <p for="staticEmail" class="col-sm-4 col-form-label">
+                    Rol comercial
+                  </p>
+                  <div class="d-flex col-sm-8 mb-2">
+                    <div class="form-check form-control-sm" *ngFor="let role of roles">
+                      <input
+                        [(ngModel)]="data.roleId"
+                        class="form-check-input mx-2"
+                        type="radio"
+                        name="roleId"
+                        [value]="role.id"
+                        (click)="captureInputRol(role.description)"
+                      >
+                      <label class="form-check-label">
+                        <span>{{ role.description }}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                        [(ngModel)]="data.typeId"
+                        name="typeId"
+                        class="form-control"
+                      >
+                        <option selected>Seleccionar...</option>
+                        <option
+                          *ngFor="let type of typesIdentifications"
+                          [value]="type.id"
+                        >
+                          {{ type.description }}
+                        </option>
+                      </select>
+                    <label for="floatingPassword">Tipo de Identificación</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input 
+                        [(ngModel)]="data.numberIdentification"
+                        type="text"
+                        name="numberIdentification"
+                        placeholder="Ingrese su número de Identificación"
+                        class="form-control" 
+                      />
+                    <label for="floatingPassword">N° de Identificación</label>
+                  </div>
+                  <div class="form-floating mb-3" [hidden]="hiddenData">
+                    <input
+                        [(ngModel)]="data.names"
+                        type="text"
+                        name="names"
+                        placeholder="Ingresar nombres"
+                        class="form-control form-control-sm" 
+                      />
+                    <label for="floatingPassword">Nombres</label>
+                  </div>
+                  <div class="form-floating mb-3" [hidden]="hiddenData">
+                    <input
+                        [(ngModel)]="data.surnames"
+                        type="text"
+                        name="surnames"
+                        placeholder="Ingresar apellidos"
+                        class="form-control form-control-sm" />
+                    <label for="floatingPassword">Apellidos</label>
+                  </div>
+                  <div class="form-floating mb-3" [hidden]="hiddenData">
+                    <input
+                        [(ngModel)]="data.cellPhone"
+                        type="text"
+                        name="cellPhone"
+                        placeholder="Ingresar número de télefono"
+                        class="form-control form-control-sm" />
+                    <label for="floatingPassword">Teléfono</label>
+                  </div>
+                  <div class="form-floating mb-3 py-2" [hidden]="hiddenRuc">
+                    <input
+                        class="form-control"
+                        id="floatingInput"
+                        name="filePdf"
+                        type="file" 
+                        (change)="captureFile($event)" 
+                        placeholder="Ingrese archivo pdf" 
+                         accept=".pdf"
+                         required
+                      />
+                    <label for="floatingInput">Cargar Certificado de Ruc</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                        [(ngModel)]="data.email"
+                        type="text"
+                        name="email"
+                        placeholder="Ingresar correo electrónico"
+                        class="form-control form-control-sm" />
+                    <label for="floatingPassword">Correo electrónico</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                        [(ngModel)]="data.password"
+                        type="password"
+                        name="password"
+                        placeholder="Ingresar una clave con carácteres especiales"
+                        class="form-control form-control-sm" />
+                    <label for="floatingPassword">Contraseña</label>
+                  </div>
+                  <div class="form-floating mb-3" [hidden]="hiddenData">
+                    <input
+                    [(ngModel)]="confirmPassword"
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirmar su contraseña"
+                    class="form-control form-control-sm" />
+                    <label for="floatingPassword">Confirmar contraseña</label>
+                  </div>
+
+                  <div class="d-grid">
+                    <!-- Terms and conditions required -->
+                    <div class="form-check d-flex justify-content-center mb-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [checked]="false"
+                      (change)="handleInputChange($event)"
+                      id="checkboxPrivacy"
+                    />
+                    <label class="form-check-label ms-2" for="form2Example3">
+                      Aceptar los <a href="../../../assets/Politicas/PolíticaPrivacidad-EcuaShopping.pdf" target="_blank">Términos y condiciones de servicio</a>
+                    </label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" 
+                  type="submit" (click)="register()">Registrarse</button>
+                  </div>
+                </form>
+                <form *ngIf="title === 'Verificar cuenta'">
+                  <div class="form-floating mb-3">
+                    <input 
+                        [(ngModel)]="dataVerify.email"
+                        type="text"
+                        name="email"
+                        placeholder="Ingrese su correo electrónico"
+                        class="form-control" 
+                      />
+                    <label for="floatingPassword">Ingrese su correo electrónico</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                        [(ngModel)]="dataVerify.codeForVerfication"
+                        type="text"
+                        name="codeForVerfication"
+                        placeholder="Ingresar el código de verificación"
+                        class="form-control form-control-sm" 
+                      />
+                    <label for="floatingPassword">Ingrese su código de verificación</label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" 
+                  type="submit" (click)="register()">{{ titleButton }}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

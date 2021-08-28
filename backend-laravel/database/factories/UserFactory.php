@@ -31,8 +31,9 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cellPhone' => $this->faker->isbn10(),
-            'pathImage' => $this->faker->sentence(),
-            'nameImage' => $this->faker->sentence(),
+            'filePdf' => $this->faker->sentence(),
+            'markImage' => $this->faker->sentence(),
+            'province' => $this->faker->name(),
             'codeForVerfication' => '123456',
             'statusEmailVerified' => 0,
             'email_verified_at' => now(),

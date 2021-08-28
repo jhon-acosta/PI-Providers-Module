@@ -1,0 +1,41 @@
+<!--Profile Card 3-->
+<div class="text-center">
+    <div class="card text-center">
+        <div class="card-body ">
+            <h5 class="mt-3 w-100 float-left text-center"><strong>Proveedor de EcuShopping</strong></h5>
+
+        </div>
+    </div>
+    <div class="card profile-card-3">
+        <div class="background-block">
+            <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH1Rjx7drOJJnWRok3iF_Vm26FjketXkh-w&usqp=CAU"
+                alt="profile-sample1" class="background" /> -->
+        </div>
+        <div class="profile-thumb-block">
+            <img src="{{avatar}}" alt="profile-image" class="profile" />
+        </div>
+        <div class="card-content">
+            <h2>{{user}}</h2>
+            <span *ngIf="scoreValue === 0"> Sin calificaciones</span> 
+            <span *ngIf="scoreValue !== 0"> {{ scoreValue }}/5  </span>
+            <div class="available_line d-flex flex-row justify-content-center">
+                <div class="sold_stars ml-auto">
+                    <i class="fa fa-star" *ngFor="let start of arrScore"></i>
+                </div>
+            </div>
+            <p>{{userEmail}}</p>
+            <p class="card-text">Bienvenido, ahora eres parte del equipo de
+                proveedores de
+                la primera tienda online de emprendimientos ecuatorianos.
+            </p>
+            <p>{{userPhone}}</p>
+            <p class="fw-bold">
+                Disfruta esta nueva experiencia!
+            </p>
+            <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i
+                        class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,28 @@
+img{
+    width:145px;
+    height:135px;
+    margin-left: 10px;
+    border-radius:150px;
+  }
+  .abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: 100vh; */
+  }
+  
+  .form {
+    width: 800px;
+  }
+
+  .row {
+    margin-bottom: 5px;
+  }
+  .row .row {
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+  [class*="col-"] {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
