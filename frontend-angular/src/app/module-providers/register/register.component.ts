@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit {
   public roleDescription: string;
   public numbersLastRuc: string;
   public checkboxPrivacy: any;
+  public firstNumberCellPhone:string;
 
   constructor(
     private _roles: RolesService,
@@ -173,12 +174,14 @@ export class RegisterComponent implements OnInit {
         if (this.data.surnames == '') {
           return this.toastr.error('No registrado', 'Ingrese su apellido');
         }
-        if (this.data.cellPhone == '' && this.dataVerify.email == '') {
+        this.firstNumberCellPhone=this.data.cellPhone.substr(-20,2);
+        console.log(this.firstNumberCellPhone)
+        if (this.data.cellPhone == '' || this.firstNumberCellPhone !== '09') {
           return this.toastr.error('No registrado',
             'Verifique el número de teléfono');
         } else {
           if ((this.data.cellPhone.length < 10 ||
-            this.data.cellPhone.length > 10) && this.dataVerify.email == '') {
+            this.data.cellPhone.length > 10)) {
             return this.toastr.warning('N° de ingresado incorrecto',
               'Verifique el número de teléfono');
           }
@@ -193,22 +196,22 @@ export class RegisterComponent implements OnInit {
           return this.toastr.error('No registrado',
             'Verifique el correo electrónico');
         }
-        if (this.data.password == '') {
-          return this.toastr.error('No registrado',
-            'Ingrese una contraseña');
+        if (this.data.password == '' || !/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/.exec(this.data.password)) {
+          return this.toastr.error('La contraseña debe tener entre 8 y 16 caracteres, minúsculas, mayúsculas y al menos un caracter no alfanumérico',
+            'Contraseña débil');
         }
-        if (this.confirmPassword == '' &&
-          this.dataVerify.email !== '') {
-          return this.toastr.error('Campo vacío',
+        if (this.confirmPassword == ''  || this.data.password !== this.confirmPassword ) {
+          return this.toastr.error('Error en el campo',
             'Verifique la confirmación de la contraseña');
         }
         if (this.checkboxPrivacy == true) {
-          await this._register.registerUser(dataUser).subscribe(res => {
-            this.title = 'Verificar cuenta'
-            this.titleButton = 'Verificar'
-            this.toastr.success('Revisé su bandeja de entrada',
-              'Código enviado');
-          })
+          console.log(this.data)
+          // await this._register.registerUser(dataUser).subscribe(res => {
+          //   this.title = 'Verificar cuenta'
+          //   this.titleButton = 'Verificar'
+          //   this.toastr.success('Revisé su bandeja de entrada',
+          //     'Código enviado');
+          // })
         } else {
           return this.toastr.error('Politicas de privacidad',
             'Acepte los términos y condiciones');
