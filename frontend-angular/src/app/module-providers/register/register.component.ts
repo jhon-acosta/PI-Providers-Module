@@ -168,11 +168,11 @@ export class RegisterComponent implements OnInit {
             }
           }
         }
-        if (this.data.names == '') {
-          return this.toastr.error('No registrado', 'Ingrese su nombre');
+        if (this.data.names == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.names)) {
+          return this.toastr.error('Error en el campo nombres', 'Verfique los caracteres ingresados o ingrese sus nombres');
         }
-        if (this.data.surnames == '') {
-          return this.toastr.error('No registrado', 'Ingrese su apellido');
+        if (this.data.surnames == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.surnames)) {
+          return this.toastr.error('Error en el campo apellidos', 'Verifique los caracteres ingresados o ingrese sus apellidos');
         }
         this.firstNumberCellPhone=this.data.cellPhone.substr(-20,2);
         console.log(this.firstNumberCellPhone)
@@ -206,12 +206,12 @@ export class RegisterComponent implements OnInit {
         }
         if (this.checkboxPrivacy == true) {
           console.log(this.data)
-          // await this._register.registerUser(dataUser).subscribe(res => {
-          //   this.title = 'Verificar cuenta'
-          //   this.titleButton = 'Verificar'
-          //   this.toastr.success('Revisé su bandeja de entrada',
-          //     'Código enviado');
-          // })
+          await this._register.registerUser(dataUser).subscribe(res => {
+            this.title = 'Verificar cuenta'
+            this.titleButton = 'Verificar'
+            this.toastr.success('Revisé su bandeja de entrada',
+              'Código enviado');
+          })
         } else {
           return this.toastr.error('Politicas de privacidad',
             'Acepte los términos y condiciones');
