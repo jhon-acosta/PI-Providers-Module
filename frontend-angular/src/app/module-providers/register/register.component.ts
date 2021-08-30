@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit {
   roles: Array<{ id: number, description: string }>
   typesIdentifications: Array<{ id: number, description: string }>
   provincesEc: Array<{ provincia: string }>
+  registerWithOauth = undefined as string
 
   public preview: string;
   public avatar: any;
@@ -98,6 +99,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerWithGoogle() {
+    this.registerWithOauth = 'OauthGoogle'
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((response: any) => {
         this.hiddenData = true;
@@ -168,11 +170,13 @@ export class RegisterComponent implements OnInit {
             }
           }
         }
-        if (this.data.names == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.names)) {
-          return this.toastr.error('Error en el campo nombres', 'Verfique los caracteres ingresados o ingrese sus nombres');
-        }
-        if (this.data.surnames == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.surnames)) {
-          return this.toastr.error('Error en el campo apellidos', 'Verifique los caracteres ingresados o ingrese sus apellidos');
+        if (this.registerWithOauth !== 'OauthGoogle') {
+          if (this.data.names == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.names)) {
+            return this.toastr.error('Error en el campo nombres', 'Verfique los caracteres ingresados o ingrese sus nombres');
+          }
+          if (this.data.surnames == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.surnames)) {
+            return this.toastr.error('Error en el campo apellidos', 'Verifique los caracteres ingresados o ingrese sus apellidos');
+          }
         }
         this.firstNumberCellPhone=this.data.cellPhone.substr(-20,2);
         console.log(this.firstNumberCellPhone)
@@ -197,12 +201,14 @@ export class RegisterComponent implements OnInit {
             'Verifique el correo electrónico');
         }
         if (this.data.password == '' || !/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/.exec(this.data.password)) {
-          return this.toastr.error('La contraseña debe tener entre 8 y 16 caracteres, minúsculas, mayúsculas y al menos un caracter no alfanumérico',
+          return this.toastr.error('La contraseña debe tener entre 8 y 16 caracteres, minúsculas, mayúsculas y al menos un caracter alfanumérico',
             'Contraseña débil');
         }
-        if (this.confirmPassword == ''  || this.data.password !== this.confirmPassword ) {
-          return this.toastr.error('Error en el campo',
-            'Verifique la confirmación de la contraseña');
+        if (this.registerWithOauth !== 'OauthGoogle') {
+          if (this.confirmPassword == ''  || this.data.password !== this.confirmPassword ) {
+            return this.toastr.error('Error en el campo',
+              'Verifique la confirmación de la contraseña');
+          }
         }
         if (this.checkboxPrivacy == true) {
           console.log(this.data)
