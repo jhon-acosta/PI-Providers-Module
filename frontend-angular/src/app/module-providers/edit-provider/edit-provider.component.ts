@@ -26,6 +26,7 @@ export class EditProviderComponent implements OnInit {
   public captureFiles:any;
   public captureImages:any;
   public hiddenRuc:boolean=false;
+  public firstNumberCellPhone:string;
   constructor( private _route:ActivatedRoute, 
     private _api:UserService, 
     private _sanitizer:DomSanitizer, 
@@ -70,6 +71,27 @@ export class EditProviderComponent implements OnInit {
     dataUser.append('filePdf', this.users.filePdf);
     dataUser.append('fileImg', this.users.markImage);
     dataUser.append('user', JSON.stringify(this.users));
+    if (this.users.names == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.users.names)) {
+      return this.toastr.error('Error en el campo nombres', 'Verfique los caracteres ingresados o ingrese sus nombres');
+    }
+    if (this.users.surnames == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.users.surnames)) {
+      return this.toastr.error('Error en el campo apellidos', 'Verifique los caracteres ingresados o ingrese sus apellidos');
+    }
+    this.firstNumberCellPhone=this.users.cellPhone.substr(-20,2);
+    console.log(this.firstNumberCellPhone)
+    if (this.users.cellPhone == '' || this.firstNumberCellPhone !== '09') {
+      return this.toastr.error('No registrado',
+        'Verifique el número de teléfono');
+    } else {
+      if ((this.users.cellPhone.length < 10 ||
+        this.users.cellPhone.length > 10)) {
+        return this.toastr.warning('N° de teléfono se ha excedido del limite de 10 dígitos',
+          'Verifique el número de teléfono');
+      }
+    }
+    if (this.users.province == 'Seleccionar...') {
+      return this.toastr.error('No registrado', 'Ingrese la provincia');
+    }
       if (this.users.bankName == '' || this.users.bankName == null) {
         return this.toastr.error('No registrado', 'Ingrese un Banco');
       }
