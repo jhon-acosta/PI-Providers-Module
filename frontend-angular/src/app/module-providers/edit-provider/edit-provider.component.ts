@@ -71,10 +71,10 @@ export class EditProviderComponent implements OnInit {
     dataUser.append('filePdf', this.users.filePdf);
     dataUser.append('fileImg', this.users.markImage);
     dataUser.append('user', JSON.stringify(this.users));
-    if (this.users.names == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.users.names)) {
+    if (this.users.names == '') {
       return this.toastr.error('Error en el campo nombres', 'Verfique los caracteres ingresados o ingrese sus nombres');
     }
-    if (this.users.surnames == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.users.surnames)) {
+    if (this.users.surnames == '') {
       return this.toastr.error('Error en el campo apellidos', 'Verifique los caracteres ingresados o ingrese sus apellidos');
     }
     this.firstNumberCellPhone=this.users.cellPhone.substr(-20,2);
