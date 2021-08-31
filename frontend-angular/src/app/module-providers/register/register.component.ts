@@ -170,13 +170,15 @@ export class RegisterComponent implements OnInit {
             }
           }
         }
-        if (this.registerWithOauth !== 'OauthGoogle') {
+        if(this.hiddenData == false){
+          
           if (this.data.names == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.names)) {
             return this.toastr.error('Error en el campo nombres', 'Verfique los caracteres ingresados o ingrese sus nombres');
           }
           if (this.data.surnames == '' || !/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/.exec(this.data.surnames)) {
             return this.toastr.error('Error en el campo apellidos', 'Verifique los caracteres ingresados o ingrese sus apellidos');
           }
+          
         }
         this.firstNumberCellPhone=this.data.cellPhone.substr(-20,2);
         console.log(this.firstNumberCellPhone)
@@ -204,7 +206,8 @@ export class RegisterComponent implements OnInit {
           return this.toastr.error('La contraseña debe tener entre 8 y 16 caracteres, minúsculas, mayúsculas y al menos un caracter alfanumérico',
             'Contraseña débil');
         }
-        if (this.registerWithOauth !== 'OauthGoogle') {
+
+        if(this.hiddenData == false){
           if (this.confirmPassword == ''  || this.data.password !== this.confirmPassword ) {
             return this.toastr.error('Error en el campo',
               'Verifique la confirmación de la contraseña');
