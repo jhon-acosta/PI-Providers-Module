@@ -121,6 +121,9 @@ export class EditProviderComponent implements OnInit {
     this.users.filePdf=event.target.files[0];
     if (this.captureFiles == null) {
       this.captureFiles = event.target.files[0];
+      if(this.captureFiles['size'] > 	5000000){
+        this.toastr.warning('Error de archivo', 'El archivo no debe superar los 5MB');
+       }else{
       this.extractBase64(this.captureFiles).then((repository: any) => {
         this.preview = repository.base;
       })
@@ -130,6 +133,7 @@ export class EditProviderComponent implements OnInit {
       } else {
         this.toastr.warning('Error de archivo', 'El archivo ingresado no es un PDF');
       }
+       }
     }
   }
 
@@ -138,17 +142,21 @@ export class EditProviderComponent implements OnInit {
     this.users.markImage=event.target.files[0];
     if(this.captureImages == null){
       this.captureImages = event.target.files[0];
-    if('image/jpeg'=== this.captureImages.type || 'image/jpg' === this.captureImages.type || 'image/png' === this.captureImages.type){
-      this.users.markImage=this.captureImages;
-      this.captureImages=this.users.markImage;
+    if(this.captureImages['size'] > 	3000000 ){
+      this.toastr.warning('Error de archivo', 'El archivo no debe superar los 3MB');
     }else{
-      this.toastr.warning('No registrado', 'El archivo no tiene un formato de imagen');
-      console.log('No es un formato de imagen')
+      if('image/jpeg'=== this.captureImages.type || 'image/jpg' === this.captureImages.type || 'image/png' === this.captureImages.type){
+        this.users.markImage=this.captureImages;
+        this.captureImages=this.users.markImage;
+        this.extractBase64(this.users.markImage).then((img :any) =>{
+          this.preview = img.base;
+        })
+      }else{
+        this.toastr.warning('No registrado', 'El archivo no tiene un formato de imagen');
+        console.log('No es un formato de imagen')
+      }
     }
     }
-    this.extractBase64(this.users.markImage).then((img :any) =>{
-      this.preview = img.base;
-    })
     
   }
   extractBase64 = async ($event: any) => new Promise((resolve) => {
