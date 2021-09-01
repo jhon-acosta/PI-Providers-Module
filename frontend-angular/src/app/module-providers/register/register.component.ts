@@ -254,8 +254,12 @@ export class RegisterComponent implements OnInit {
   //file pdf
   captureFile(event): void {
     this.data.filePdf = event.target.files[0];
+    
     if (this.captureFiles == null) {
       this.captureFiles = event.target.files[0];
+     if(this.captureFiles['size'] > 	5000000){
+      this.toastr.warning('Error de archivo', 'El archivo no debe superar los 5MB');
+     }else{
       this.extractBase64(this.captureFiles).then((repository: any) => {
         this.preview = repository.base;
       })
@@ -265,6 +269,7 @@ export class RegisterComponent implements OnInit {
       } else {
         this.toastr.warning('Error de archivo', 'El archivo ingresado no es un PDF');
       }
+     }
     }
   }
 
